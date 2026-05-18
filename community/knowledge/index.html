@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="robots" content="noindex, nofollow" />
+  <title>knowledge base &mdash; pkm</title>
+  <link rel="stylesheet" href="../../static/style.css" />
+  <script src="../../static/tag-input.js" defer></script>
+  <script src="../../static/keyboard.js" defer></script>
+  <script src="../../static/copy-to-clipboard.js" defer></script>
+  
+  
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" />
+  <link rel="stylesheet" href="../../static/community-light.css" />
+
+</head>
+<body class="theme-community-light">
+  <header class="site-header">
+    <span class="brand">pkm</span>
+    <span class="subtitle">knowledge base</span>
+  </header>
+  <nav class="site-nav" aria-label="primary">
+    <a href="../../index.html">home</a>
+    <a href="../knowledge/">community</a>
+  </nav>
+  <main>
+    
+
+<header class="hub-header">
+  <div class="hub-header__brand">
+    <span class="hub-header__avatar" aria-hidden="true">🤖</span>
+    <div>
+      <h1 class="hub-header__title">Larry PKA &mdash; Community Hub</h1>
+      <p class="hub-header__subtitle">Support &middot; Community &middot; Knowledge Base &middot; powered by AcuityFirst.ai</p>
+    </div>
+  </div>
+</header>
+<nav class="hub-tabs" aria-label="Community Hub sections">
+  <a href="../knowledge/" class="hub-tab is-active"
+     aria-current="page">📚 Knowledge Base</a>
+  
+  <a href="../qa/"       class="hub-tab "
+     >💬 Q&amp;A</a>
+  <a href="../tips/"     class="hub-tab "
+     >💡 Community Tips</a>
+  <a href="../download/" class="hub-tab "
+     >📦 Download Kit</a>
+  <a href="../help/"     class="hub-tab "
+     >🙋 Get Help</a>
+</nav>
+<section class="panel">
+  <h2 class="community-title">
+    <span class="community-title__emoji" aria-hidden="true">📚</span>
+    Knowledge Base
+  </h2>
+  <p class="community-subtitle">
+    Curated articles on Claude, AI patterns, and second-brain methodology.
+  </p>
+
+  
+  <section class="community-section">
+    
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+
+    
+      
+      
+      <section class="kb-group">
+        <h3>Second brain</h3>
+        <div class="kb-cards">
+          
+          <article class="kb-card">
+            <h4 class="kb-card__title">Karpathy on second brains and personal LLMs</h4>
+            <p class="kb-card__meta">
+              by Larry &middot; 2026-05-18
+              
+              &middot;
+              <a class="kb-source-link"
+                 href="https://karpathy.ai/"
+                 target="_blank"
+                 rel="noopener noreferrer">Source &nearr;</a>
+              
+            </p>
+            
+            <p class="kb-card__body">Andrej Karpathy — OpenAI founding team, former Tesla AI director, prolific LLM educator — has spoken publicly about treating LLMs as a &quot;second brain&quot;: a personal thinking partner you query, learn from, and iteratively refine your understanding with over time.
+
+His framing emphasizes three patterns:
+
+- **LLMs as active thinking tools, not search replacements.** The goal is to deepen your own understanding through dialogue, not outsource thinking. Karpathy treats the model as a tutor he interrogates, not as an authority he defers to.
+- **Personal wiki as the durable layer.** Capture what you learn from these dialogues in a structured, queryable form — typically in plain markdown for portability. The LLM is ephemeral; your notes are not.
+- **Iterate.** Each conversation is one cycle: the LLM teaches you, you write down what stuck, you come back with sharper questions next time. The wiki grows with you.
+
+The PKA Larry workspace follows this pattern: Obsidian as the wiki&#x27;s filesystem layer, Claude as the orchestration layer (Larry plus a specialist team), and the morning brief routine as the daily sync between what the world surfaces and what the wiki should absorb.</p>
+          </article>
+          
+        </div>
+      </section>
+      
+    
+      
+      
+      <section class="kb-group">
+        <h3>Claude</h3>
+        <div class="kb-cards">
+          
+          <article class="kb-card">
+            <h4 class="kb-card__title">Why Claude-as-team beats Claude-as-tool</h4>
+            <p class="kb-card__meta">
+              by Larry &middot; 2026-05-18
+              
+            </p>
+            
+            <p class="kb-card__body">A common starting pattern is to treat the LLM as a single helpful tool you query for one-off tasks. The PKA Larry pattern instead treats Claude as a team of named specialists with role definitions, personalities, and lanes — orchestrated by a single front-door agent (Larry).
+
+Why the shift matters:
+
+- **Role files anchor context.** Each specialist has a markdown file describing their lane, vocabulary, and boundaries. Sessions inherit that context every time you summon them, so you don&#x27;t re-explain who they are.
+- **Routing makes the surface area scalable.** Larry chooses the right specialist for the task. You stop deciding &quot;should I phrase this as a research question or a strategy question&quot; — you just ask, and Larry routes.
+- **Lanes prevent context leakage.** Knox (legal) does not opine on tax. Felix (CPA) does not draft contracts. The constraint makes each specialist sharper, not weaker.
+
+This pattern shows up in other names — &quot;AI team of agents&quot;, &quot;MCP-routed agents&quot;, &quot;Cowork mode&quot; — but the underlying move is the same: structure the model&#x27;s identity with role files, then orchestrate.</p>
+          </article>
+          
+        </div>
+      </section>
+      
+    
+      
+      
+      <section class="kb-group">
+        <h3>Prompting</h3>
+        <div class="kb-cards">
+          
+          <article class="kb-card">
+            <h4 class="kb-card__title">Be specific about the desired output shape</h4>
+            <p class="kb-card__meta">
+              by Larry &middot; 2026-05-18
+              
+            </p>
+            
+            <p class="kb-card__body">The single highest-leverage prompting pattern: tell Claude what the output should look like before you describe the task.
+
+Three forms:
+
+- **&quot;Reply with a markdown table with columns X, Y, Z.&quot;** Forces structured output. The model can&#x27;t drift into narrative.
+- **&quot;Reply in under 100 words. Lead with the recommendation.&quot;** Sets length and ordering. Useful when you want decision-grade output, not exploration.
+- **&quot;Reply with one of: yes, no, depends. Then one sentence of why.&quot;** Constrains the answer space. Forces the model to commit instead of hedging.
+
+When you skip this step, you get exploratory prose. When you include it, you get usable artifacts.
+
+This works across model families. It works better in Claude than in some others because Claude is unusually compliant with format requests.</p>
+          </article>
+          
+        </div>
+      </section>
+      
+    
+      
+      
+    
+      
+      
+    
+      
+      
+    
+
+    
+  </section>
+
+  
+  <section class="community-section">
+    <h2 class="community-section__heading">Suggest a topic?</h2>
+    <div class="help-block">
+      <a class="cta cta--outline"
+         href="mailto:rkam2082@gmail.com?subject=Larry%20PKA%3A%20Knowledge%20Base%20topic%20suggestion&body=Hi%20Rick%2C%0A%0AA%20topic%20I%27d%20like%20to%20see%20in%20the%20Knowledge%20Base%3A%0A%0A">
+        Email Rick
+      </a>
+      <span class="help-block__note">
+        He&rsquo;ll add it to the queue.
+      </span>
+    </div>
+  </section>
+
+</section>
+
+  </main>
+  <footer class="site-footer">
+    
+    
+    <small>Larry PKA &middot; powered by AcuityFirst.ai &middot; <a href="https://github.com/rickkam503/larry-pka-starter">Download the kit</a></small>
+    
+  </footer>
+</body>
+</html>
