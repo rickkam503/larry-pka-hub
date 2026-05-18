@@ -1,0 +1,1576 @@
+/* ============================================================
+   community-light.css — Deployment Tracker treatment, scoped.
+   ------------------------------------------------------------
+   Loaded ONLY by /community (community.html sets
+   body.theme-community-light via the body_class block, and pulls
+   this stylesheet in via the extra_head block).
+
+   Every selector here is prefixed with `body.theme-community-light`
+   so /interactions, /search, and / are 100% unaffected — they still
+   render the dark theme from style.css.
+
+   Palette:
+     navy  #0b2545   — primary text + headings
+     teal  #0d9488   — accent CTA + filter pills (matches the mockup)
+     teal-deep #0f766e — hover state for the teal CTAs
+     azure #2563eb   — kept available for future links if needed
+     cloud #f7f8fa   — page background
+     white #ffffff   — card surface
+     steel #6b7280   — muted text
+     rule  #e5e7eb   — soft borders
+   ============================================================ */
+
+body.theme-community-light {
+  --fg: #0b2545;
+  --fg-muted: #6b7280;
+  --bg: #f5f5f7;                 /* slightly warmer off-white (2026-05-18) */
+  --rule: #e5e7eb;
+  --accent: #10b981;             /* brighter teal (2026-05-18) */
+  --accent-deep: #047857;
+  --brand-navy: #0b2545;
+  --brand-navy-dark: #0e2849;    /* hero gradient start */
+  --brand-navy-light: #1a3a6b;   /* hero gradient end */
+  --panel-bg: #ffffff;
+  --card-radius: 12px;
+  --card-shadow: 0 1px 2px rgba(0, 0, 0, 0.04),
+                 0 4px 12px rgba(0, 0, 0, 0.04);
+
+  /* Status badge palette (light theme, per brief). */
+  --badge-active-bg: #d1fae5;   --badge-active-fg: #065f46;
+  --badge-deployed-bg: #dbeafe; --badge-deployed-fg: #1e40af;
+  --badge-pending-bg: #fef3c7;  --badge-pending-fg: #92400e;
+  --badge-inactive-bg: #e5e7eb; --badge-inactive-fg: #374151;
+  --badge-deleted-bg: #fee2e2;  --badge-deleted-fg: #991b1b;
+
+  background: var(--bg);
+  color: var(--fg);
+  font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI",
+               system-ui, sans-serif;
+  font-feature-settings: "cv02", "cv03", "cv04", "cv11";
+}
+
+/* Pin the light palette explicitly so OS dark mode can't recapture
+   this page through style.css's @media (prefers-color-scheme: dark)
+   block. */
+@media (prefers-color-scheme: dark) {
+  body.theme-community-light {
+    --fg: #0b2545;
+    --fg-muted: #6b7280;
+    --bg: #f5f5f7;
+    --rule: #e5e7eb;
+    --accent: #10b981;
+    --accent-deep: #047857;
+    --brand-navy: #0b2545;
+    --brand-navy-dark: #0e2849;
+    --brand-navy-light: #1a3a6b;
+    --panel-bg: #ffffff;
+    background: var(--bg);
+    color: var(--fg);
+  }
+  /* Re-pin the status badges too — the global @media block in style.css
+     would otherwise repaint them dark. */
+  body.theme-community-light .status-badge.status-active {
+    background: var(--badge-active-bg); color: var(--badge-active-fg);
+    border-color: transparent;
+  }
+  body.theme-community-light .status-badge.status-deployed {
+    background: var(--badge-deployed-bg); color: var(--badge-deployed-fg);
+    border-color: transparent;
+  }
+  body.theme-community-light .status-badge.status-pending {
+    background: var(--badge-pending-bg); color: var(--badge-pending-fg);
+    border-color: transparent;
+  }
+  body.theme-community-light .status-badge.status-inactive {
+    background: var(--badge-inactive-bg); color: var(--badge-inactive-fg);
+    border-color: transparent;
+  }
+  body.theme-community-light .status-badge.status-deleted {
+    background: var(--badge-deleted-bg); color: var(--badge-deleted-fg);
+    border-color: transparent;
+  }
+}
+
+/* ---- Header / nav / footer chrome ---- */
+body.theme-community-light .site-header,
+body.theme-community-light .site-footer {
+  background: var(--bg);
+  border-color: var(--rule);
+}
+body.theme-community-light .site-header .brand {
+  color: var(--brand-navy);
+  letter-spacing: 0.02em;
+}
+body.theme-community-light .site-header .subtitle {
+  color: var(--fg-muted);
+}
+body.theme-community-light .site-nav {
+  background: var(--bg);
+  border-color: var(--rule);
+}
+body.theme-community-light .site-nav a { color: var(--fg-muted); }
+body.theme-community-light .site-nav a:hover,
+body.theme-community-light .site-nav a:focus {
+  color: var(--accent);
+  text-decoration: underline;
+}
+body.theme-community-light .site-nav a[aria-current="page"] {
+  color: var(--brand-navy);
+  font-weight: 600;
+}
+body.theme-community-light .site-footer { color: var(--fg-muted); }
+
+/* ---- Main + outer panel ---- */
+body.theme-community-light main { padding: 2rem 1rem 3rem; }
+body.theme-community-light .panel {
+  background: var(--panel-bg);
+  border: 1px solid var(--rule);
+  border-radius: var(--card-radius);
+  padding: 1.75rem 1.75rem 2.25rem;
+  box-shadow: var(--card-shadow);
+}
+
+/* ---- Heading row ---- */
+body.theme-community-light .community-title {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  margin: 0 0 0.35rem;
+  font-size: 1.65rem;
+  font-weight: 700;
+  letter-spacing: -0.015em;
+  color: var(--brand-navy);
+}
+body.theme-community-light .community-title__emoji {
+  font-size: 1.5rem;
+  line-height: 1;
+}
+body.theme-community-light .community-subtitle {
+  margin: 0 0 1.5rem;
+  color: var(--fg-muted);
+  font-size: 0.95rem;
+}
+
+/* ---- KPI cards ---- */
+body.theme-community-light .kpi-row {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  gap: 0.85rem;
+  margin: 0 0 1.5rem;
+}
+body.theme-community-light .kpi-card {
+  background: var(--panel-bg);
+  border: 1px solid var(--rule);
+  border-radius: var(--card-radius);
+  padding: 1rem 1.1rem;
+  text-align: left;
+  box-shadow: var(--card-shadow);
+}
+body.theme-community-light .kpi-card__num {
+  display: block;
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: var(--brand-navy);
+  letter-spacing: -0.02em;
+  line-height: 1.1;
+}
+body.theme-community-light .kpi-card__label {
+  display: block;
+  margin-top: 0.2rem;
+  font-size: 0.78rem;
+  font-weight: 500;
+  color: var(--fg-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+/* ---- Section card wrapper (used for the add form + table sections) ---- */
+body.theme-community-light .community-section {
+  background: var(--panel-bg);
+  border: 1px solid var(--rule);
+  border-radius: var(--card-radius);
+  padding: 1.1rem 1.25rem 1.25rem;
+  margin: 0 0 1.5rem;
+  box-shadow: var(--card-shadow);
+}
+body.theme-community-light .community-section__heading {
+  margin: 0 0 0.85rem;
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--brand-navy);
+  letter-spacing: -0.005em;
+}
+
+/* ---- Add-recipient form ---- */
+body.theme-community-light .community-form .form-row {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 0.75rem;
+  margin: 0 0 0.75rem;
+}
+body.theme-community-light .community-form label {
+  display: block;
+  margin: 0;
+}
+body.theme-community-light .community-form label > span {
+  display: block;
+  font-size: 0.78rem;
+  font-weight: 500;
+  color: var(--fg-muted);
+  margin-bottom: 0.25rem;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+body.theme-community-light .community-form label > span em {
+  color: #b91c1c;
+  font-style: normal;
+  margin-left: 0.15rem;
+}
+body.theme-community-light .community-form input[type="text"],
+body.theme-community-light .community-form input[type="email"],
+body.theme-community-light .community-form input[type="date"],
+body.theme-community-light .community-form select,
+body.theme-community-light .community-form textarea {
+  width: 100%;
+  background: var(--panel-bg);
+  color: var(--fg);
+  border: 1px solid var(--rule);
+  border-radius: 6px;
+  padding: 0.55rem 0.7rem;
+  font-size: 0.92rem;
+  font-family: inherit;
+  box-sizing: border-box;
+}
+body.theme-community-light .community-form input:focus,
+body.theme-community-light .community-form select:focus,
+body.theme-community-light .community-form textarea:focus {
+  outline: 2px solid var(--accent);
+  outline-offset: -1px;
+  border-color: var(--accent);
+}
+body.theme-community-light .community-form textarea { resize: vertical; }
+body.theme-community-light .community-form .form-actions {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-top: 0.75rem;
+}
+
+/* ---- CTA buttons (teal primary) ---- */
+body.theme-community-light .cta {
+  display: inline-block;
+  background: var(--accent);
+  color: #ffffff;
+  border: 1px solid var(--accent);
+  border-radius: 8px;
+  padding: 0.6rem 1.05rem;
+  font-size: 0.92rem;
+  font-weight: 600;
+  text-decoration: none;
+  cursor: pointer;
+  transition: background 120ms ease, border-color 120ms ease,
+              box-shadow 120ms ease, transform 120ms ease;
+}
+body.theme-community-light .cta:hover,
+body.theme-community-light .cta:focus {
+  background: var(--accent-deep);
+  border-color: var(--accent-deep);
+  color: #ffffff;
+  text-decoration: none;
+  box-shadow: 0 2px 6px rgba(16, 185, 129, 0.22);
+}
+/* Outlined variant (used for the "Need help?" button at the bottom). */
+body.theme-community-light .cta--outline {
+  background: var(--panel-bg);
+  color: var(--accent);
+  border: 1px solid var(--accent);
+}
+body.theme-community-light .cta--outline:hover,
+body.theme-community-light .cta--outline:focus {
+  background: var(--accent);
+  color: #ffffff;
+}
+
+/* ---- Filter pills ---- */
+body.theme-community-light .filter-pills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  margin: 0 0 0.9rem;
+}
+body.theme-community-light .filter-pill {
+  display: inline-block;
+  padding: 0.35rem 0.85rem;
+  border-radius: 999px;
+  border: 1px solid var(--rule);
+  background: var(--panel-bg);
+  color: var(--fg-muted);
+  font-size: 0.82rem;
+  font-weight: 500;
+  text-decoration: none;
+  text-transform: capitalize;
+}
+body.theme-community-light .filter-pill:hover,
+body.theme-community-light .filter-pill:focus {
+  color: var(--accent);
+  border-color: var(--accent);
+}
+body.theme-community-light .filter-pill[aria-current="page"] {
+  background: var(--accent);
+  color: #ffffff;
+  border-color: var(--accent);
+}
+
+/* ---- Deployments table ---- */
+body.theme-community-light .deployments-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.9rem;
+}
+body.theme-community-light .deployments-table thead th {
+  text-align: left;
+  font-weight: 500;
+  font-size: 0.75rem;
+  color: var(--fg-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  border-bottom: 1px solid var(--rule);
+  padding: 0.55rem 0.65rem;
+}
+body.theme-community-light .deployments-table tbody td {
+  padding: 0.7rem 0.65rem;
+  border-bottom: 1px solid var(--rule);
+  vertical-align: top;
+  color: var(--fg);
+}
+body.theme-community-light .deployments-table tbody tr:hover td {
+  background: #ecfdf5;  /* light teal tint on row hover (2026-05-18) */
+}
+body.theme-community-light .deployments-table .col-actions {
+  white-space: nowrap;
+  text-align: right;
+}
+body.theme-community-light .deployments-table .col-notes {
+  color: var(--fg-muted);
+  max-width: 22rem;
+}
+body.theme-community-light .deployments-empty {
+  margin: 0.85rem 0 0;
+  color: var(--fg-muted);
+  font-size: 0.9rem;
+}
+
+/* ---- Status badges (light variants, !important defense against the
+        global @media dark-mode block in style.css) ---- */
+body.theme-community-light .status-badge {
+  display: inline-block;
+  font-size: 0.72rem;
+  font-weight: 500;
+  padding: 0.15rem 0.6rem;
+  border-radius: 999px;
+  border: 1px solid transparent;
+  text-transform: capitalize;
+  line-height: 1.35;
+  letter-spacing: 0.01em;
+}
+body.theme-community-light .status-badge.status-active {
+  background: var(--badge-active-bg); color: var(--badge-active-fg);
+}
+body.theme-community-light .status-badge.status-deployed {
+  background: var(--badge-deployed-bg); color: var(--badge-deployed-fg);
+}
+body.theme-community-light .status-badge.status-pending {
+  background: var(--badge-pending-bg); color: var(--badge-pending-fg);
+}
+body.theme-community-light .status-badge.status-inactive {
+  background: var(--badge-inactive-bg); color: var(--badge-inactive-fg);
+}
+body.theme-community-light .status-badge.status-deleted {
+  background: var(--badge-deleted-bg); color: var(--badge-deleted-fg);
+}
+
+/* ---- Edit / Delete buttons in the table row ---- */
+body.theme-community-light .row-btn {
+  display: inline-block;
+  padding: 0.3rem 0.65rem;
+  border-radius: 5px;
+  border: 1px solid var(--rule);
+  background: var(--panel-bg);
+  color: var(--fg);
+  font-size: 0.78rem;
+  text-decoration: none;
+  font-family: inherit;
+  cursor: pointer;
+  margin-left: 0.3rem;
+}
+body.theme-community-light .row-btn:hover,
+body.theme-community-light .row-btn:focus {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+body.theme-community-light .row-btn--delete {
+  color: #b91c1c;
+  border-color: #fecaca;
+  background: var(--panel-bg);
+}
+body.theme-community-light .row-btn--delete:hover,
+body.theme-community-light .row-btn--delete:focus {
+  background: #fee2e2;
+  border-color: #fecaca;
+  color: #991b1b;
+}
+body.theme-community-light .delete-form {
+  display: inline;
+  margin: 0;
+}
+
+/* Inline edit form, shown via <details>. Keeping it a stretched row in
+   the table is awkward; render it as a single full-width <td colspan>. */
+body.theme-community-light .edit-row td {
+  background: #fafbfc;
+  padding: 0.85rem 0.85rem 1rem;
+}
+body.theme-community-light .edit-row details > summary {
+  list-style: none;
+  cursor: pointer;
+  font-size: 0.82rem;
+  color: var(--accent);
+  font-weight: 500;
+  margin-bottom: 0.6rem;
+}
+body.theme-community-light .edit-row details > summary::-webkit-details-marker {
+  display: none;
+}
+body.theme-community-light .edit-row details[open] > summary {
+  color: var(--brand-navy);
+}
+
+/* ---- Flash banner ---- */
+body.theme-community-light .community-flash {
+  margin: 0 0 1.25rem;
+  padding: 0.65rem 0.95rem;
+  background: #d1fae5;
+  color: #065f46;
+  border: 1px solid #a7f3d0;
+  border-radius: 6px;
+  font-size: 0.9rem;
+}
+
+/* ---- Error chip ---- */
+body.theme-community-light .error-box {
+  margin: 0 0 0.85rem;
+  padding: 0.55rem 0.85rem;
+  background: #fee2e2;
+  color: #991b1b;
+  border: 1px solid #fecaca;
+  border-radius: 6px;
+  font-size: 0.88rem;
+}
+
+/* ---- Knowledge Base (restyled for light) ---- */
+body.theme-community-light .kb-group { margin: 0.4rem 0 1.1rem; }
+body.theme-community-light .kb-group h3 {
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: var(--brand-navy);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  margin: 0.5rem 0 0.5rem;
+}
+body.theme-community-light .kb-cards {
+  display: flex;
+  flex-direction: column;
+  gap: 0.55rem;
+}
+body.theme-community-light .kb-card {
+  background: var(--panel-bg);
+  border: 1px solid var(--rule);
+  border-radius: var(--card-radius);
+  padding: 0.85rem 1rem;
+  box-shadow: var(--card-shadow);
+}
+body.theme-community-light .kb-card__title {
+  margin: 0 0 0.2rem;
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--brand-navy);
+}
+body.theme-community-light .kb-card__meta {
+  margin: 0 0 0.45rem;
+  font-size: 0.75rem;
+  color: var(--fg-muted);
+}
+body.theme-community-light .kb-card__body {
+  margin: 0;
+  font-size: 0.9rem;
+  color: var(--fg);
+  line-height: 1.55;
+  white-space: pre-wrap;
+}
+body.theme-community-light .kb-empty {
+  margin: 0.25rem 0 0.5rem;
+  color: var(--fg-muted);
+  font-size: 0.88rem;
+}
+
+/* KB add form fieldset (radio row). */
+body.theme-community-light .kb-form fieldset {
+  border: 1px solid var(--rule);
+  border-radius: 6px;
+  padding: 0.55rem 0.85rem;
+  margin: 0.5rem 0 0.85rem;
+  background: #fbfbfc;
+}
+body.theme-community-light .kb-form fieldset legend {
+  font-size: 0.78rem;
+  color: var(--fg-muted);
+  padding: 0 0.3rem;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+body.theme-community-light .kb-form label.radio {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  margin: 0.2rem 1rem 0.2rem 0;
+  font-size: 0.9rem;
+  color: var(--fg);
+}
+body.theme-community-light .kb-form label.radio input { margin: 0; }
+body.theme-community-light .kb-form label {
+  display: block;
+  margin: 0.65rem 0;
+}
+body.theme-community-light .kb-form label > span {
+  display: block;
+  font-size: 0.78rem;
+  font-weight: 500;
+  color: var(--fg-muted);
+  margin-bottom: 0.25rem;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+body.theme-community-light .kb-form label > span em {
+  color: #b91c1c;
+  font-style: normal;
+}
+body.theme-community-light .kb-form input[type="text"],
+body.theme-community-light .kb-form textarea {
+  width: 100%;
+  background: var(--panel-bg);
+  color: var(--fg);
+  border: 1px solid var(--rule);
+  border-radius: 6px;
+  padding: 0.55rem 0.7rem;
+  font-size: 0.92rem;
+  font-family: inherit;
+  box-sizing: border-box;
+}
+body.theme-community-light .kb-form textarea { resize: vertical; }
+/* Format hint that sits above the Body textarea on /knowledge. Inline
+   <code> tags get a faint chip so the **Q:** / **A:** markers read as
+   literal syntax, not body text. */
+body.theme-community-light .kb-form__hint {
+  display: block;
+  margin: -0.25rem 0 0.35rem;
+  color: var(--fg-muted);
+  font-size: 0.78rem;
+  line-height: 1.45;
+  text-transform: none;
+  letter-spacing: 0;
+  font-weight: 400;
+}
+body.theme-community-light .kb-form__hint code {
+  background: #f1f5f9;
+  border: 1px solid var(--rule);
+  border-radius: 4px;
+  padding: 0.05rem 0.3rem;
+  font-size: 0.78rem;
+  color: var(--fg);
+}
+body.theme-community-light .kb-form .form-actions {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-top: 0.75rem;
+}
+body.theme-community-light .kbd-hint { color: var(--fg-muted); }
+
+/* Help button block at the bottom. */
+body.theme-community-light .help-block {
+  margin: 1.25rem 0 0;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+body.theme-community-light .help-block__note {
+  color: var(--fg-muted);
+  font-size: 0.88rem;
+}
+
+body.theme-community-light .muted { color: var(--fg-muted); }
+
+/* ============================================================
+   Layout overrides (2026-05-17)
+   ------------------------------------------------------------
+   The shared <main> in base.html inherits max-width: 42rem (672px)
+   from style.css. That's correct for the dark dashboard but
+   squeezes the Deployment Tracker — KPIs collapse, the form
+   stacks instead of going side-by-side, the table feels cramped.
+   These overrides widen the page on /community only.
+   ============================================================ */
+
+body.theme-community-light main {
+  max-width: min(1200px, 95vw);
+}
+
+/* ---- KPI row: explicit 5-up at desktop, graceful collapse ----
+   `auto-fit, minmax(140px, 1fr)` ended up wrapping at the old
+   width. Now that <main> can grow to 1200px, lock the wide-viewport
+   layout to a 5-column flex row so each KPI gets equal share and
+   they all sit on one line at desktop, then fall back to the
+   auto-fit grid below 900px so narrow viewports collapse cleanly. */
+body.theme-community-light .kpi-row {
+  display: flex;
+  gap: 0.75rem;
+}
+body.theme-community-light .kpi-row .kpi-card {
+  flex: 1 1 0;
+  min-width: 0;
+}
+@media (max-width: 900px) {
+  body.theme-community-light .kpi-row {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+    gap: 0.75rem;
+  }
+  body.theme-community-light .kpi-row .kpi-card { flex: initial; }
+}
+
+/* ---- Add Recipient form: explicit 3-column grid ----
+   Row 1: Name · Email · Relationship
+   Row 2: Date Shared · Status · Add Recipient button
+   Notes: full-width below.
+   The two `.form-row` divs in the template each become their own
+   grid; the Notes label is a direct child of the form, spanning
+   full-width via grid-column 1 / -1 once we make the form itself
+   a grid. We achieve both at once by promoting `.community-form`
+   to a 3-col grid and unwrapping the `.form-row` divs visually
+   via `display: contents`, so their children flow into the parent
+   grid. */
+body.theme-community-light .community-form {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  column-gap: 1rem;
+  row-gap: 0.75rem;
+}
+body.theme-community-light .community-form .form-row {
+  display: contents;
+}
+body.theme-community-light .community-form > label,
+body.theme-community-light .community-form > textarea {
+  /* The lone Notes label (and any other direct-child label) spans
+     the whole row. */
+  grid-column: 1 / -1;
+}
+/* The "Add Recipient" / "Save changes" submit button is a label
+   with class .muted (per template) whose only purpose is to align
+   the button to the bottom of its grid cell. Pin it to the third
+   column on its row and bottom-align it. */
+body.theme-community-light .community-form label.muted {
+  align-self: end;
+}
+body.theme-community-light .community-form label.muted .cta {
+  width: 100%;
+}
+
+@media (max-width: 720px) {
+  body.theme-community-light .community-form {
+    grid-template-columns: 1fr;
+  }
+  body.theme-community-light .community-form label.muted .cta {
+    width: auto;
+  }
+}
+
+/* ---- Filter pills: a touch more breathing room ---- */
+body.theme-community-light .filter-pills {
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+/* ---- Deployments table polish ---- */
+body.theme-community-light .deployments-table thead th,
+body.theme-community-light .deployments-table tbody td {
+  padding: 0.6rem 0.75rem;
+}
+body.theme-community-light .deployments-table .col-actions {
+  /* Buttons sit in a flex row now, so the column doesn't need to
+     force `text-align: right` to look right; left-align keeps the
+     row-wrapper from drifting away from the row content. */
+  text-align: left;
+  white-space: nowrap;
+}
+
+/* ---- Status badge as a small pill ---- */
+body.theme-community-light .status-badge {
+  display: inline-flex;
+  align-items: center;
+}
+
+/* ---- Inline Edit + Delete action row in table ---- */
+body.theme-community-light .dash-community-action-row {
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+}
+body.theme-community-light .dash-community-action-row details {
+  margin: 0;
+}
+body.theme-community-light .dash-community-action-row .row-btn {
+  /* The base .row-btn rule adds margin-left: 0.3rem so buttons
+     don't visually merge; inside our flex row, `gap` handles
+     spacing, so we drop the extra margin. */
+  margin-left: 0;
+}
+body.theme-community-light .dash-community-action-row .delete-form {
+  display: inline-flex;
+  margin: 0;
+}
+
+/* ---- Edit row visual anchor ----
+   When the inline edit <details> is expanded, indent its form body
+   with a left border accent so it reads as a child of the row
+   above instead of a free-floating panel. Closed state stays flat. */
+body.theme-community-light .edit-row details[open] {
+  padding: 0.25rem 0 0.25rem 0.85rem;
+  border-left: 3px solid var(--accent);
+  background: #ffffff;
+  border-radius: 0 6px 6px 0;
+}
+body.theme-community-light .edit-row details[open] > .community-form {
+  padding: 0.4rem 0 0.2rem;
+}
+
+/* ---- :target-driven inline Edit row (2026-05-18) ----
+   The Edit form lives in its own `<tr class="row-edit-row" id="edit-<id>">`
+   immediately after the data row. Clicking the action-cell `<a href="#edit-<id>">`
+   updates the URL hash; the matching `:target` selector below reveals the
+   form-row as a full-width panel under the data row. No JS, no <details>,
+   no absolute positioning. The Cancel link in the form clears the hash via
+   `href="#"` so the row hides again. */
+body.theme-community-light .row-edit-row {
+  display: none;
+}
+body.theme-community-light .row-edit-row:target {
+  display: table-row;
+}
+body.theme-community-light .row-edit-row > td {
+  background: #ffffff;
+  border-left: 3px solid var(--accent);
+  padding: 1rem 1.25rem;
+  white-space: normal;
+}
+body.theme-community-light .row-cancel {
+  display: inline-block;
+  margin-left: 0.6rem;
+  font-size: 0.85rem;
+  color: var(--fg-muted);
+  text-decoration: none;
+}
+body.theme-community-light .row-cancel:hover,
+body.theme-community-light .row-cancel:focus {
+  color: #b91c1c;
+}
+body.theme-community-light .community-form__actions {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+}
+
+/* ---- Knowledge base: don't sprawl across the wider main ----
+   The deployment table benefits from the 1200px container, but the
+   KB cards are short-form text and look awkward stretched. Pin the
+   KB section + the Add-to-KB form to a comfortable reading column
+   and center them. */
+body.theme-community-light .community-section:has(> .kb-group),
+body.theme-community-light .community-section:has(> .kb-form) {
+  max-width: 720px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* ============================================================
+   Hub header + tab strip (2026-05-18)
+   ------------------------------------------------------------
+   Deep navy hero banner shared across all five hub tabs. The
+   gradient + 12px corner radius bring the page into line with
+   the refined Download Kit mock. Tabs sit underneath on a
+   white-on-light strip with a teal underline for the active
+   tab — keeps the hero hero and the navigation quiet.
+   ============================================================ */
+
+body.theme-community-light .hub-header {
+  background: linear-gradient(135deg, var(--brand-navy-dark) 0%,
+                              var(--brand-navy-light) 100%);
+  color: #ffffff;
+  border-radius: var(--card-radius);
+  padding: 1.4rem 1.6rem;
+  margin: 0 0 1rem;
+  box-shadow: 0 1px 2px rgba(11, 37, 69, 0.08),
+              0 6px 18px rgba(11, 37, 69, 0.08);
+}
+body.theme-community-light .hub-header__brand {
+  display: flex;
+  align-items: center;
+  gap: 0.85rem;
+}
+body.theme-community-light .hub-header__avatar {
+  font-size: 1.85rem;
+  line-height: 1;
+}
+body.theme-community-light .hub-header__title {
+  margin: 0;
+  font-size: 1.45rem;
+  font-weight: 700;
+  letter-spacing: -0.015em;
+  color: #ffffff;
+}
+body.theme-community-light .hub-header__subtitle {
+  margin: 0.15rem 0 0;
+  font-size: 0.88rem;
+  color: rgba(255, 255, 255, 0.78);
+}
+
+body.theme-community-light .hub-tabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.25rem;
+  margin: 0 0 1.25rem;
+  padding: 0 0.25rem;
+  border-bottom: 1px solid var(--rule);
+}
+body.theme-community-light .hub-tab {
+  display: inline-block;
+  padding: 0.65rem 0.95rem;
+  margin-bottom: -1px;
+  color: var(--fg-muted);
+  font-size: 0.88rem;
+  font-weight: 500;
+  text-decoration: none;
+  border-bottom: 3px solid transparent;
+  transition: color 120ms ease, border-color 120ms ease;
+}
+body.theme-community-light .hub-tab:hover,
+body.theme-community-light .hub-tab:focus {
+  color: var(--brand-navy);
+  border-bottom-color: var(--rule);
+  text-decoration: none;
+}
+body.theme-community-light .hub-tab.is-active,
+body.theme-community-light .hub-tab[aria-current="page"] {
+  color: var(--brand-navy);
+  font-weight: 600;
+  border-bottom-color: var(--accent);
+}
+
+/* ============================================================
+   Download Kit — hero, link card, 4-step grid (2026-05-18)
+   ============================================================ */
+
+body.theme-community-light .kit-hero {
+  background: linear-gradient(135deg, var(--brand-navy-dark) 0%,
+                              var(--brand-navy-light) 100%);
+  color: #ffffff;
+  border-radius: var(--card-radius);
+  padding: 2.25rem 1.5rem 2rem;
+  margin: 0 0 1.5rem;
+  text-align: center;
+  box-shadow: 0 1px 2px rgba(11, 37, 69, 0.08),
+              0 6px 18px rgba(11, 37, 69, 0.08);
+}
+body.theme-community-light .kit-hero__icon {
+  font-size: 2.6rem;
+  line-height: 1;
+  display: block;
+  margin: 0 0 0.6rem;
+}
+body.theme-community-light .kit-hero__title {
+  margin: 0 0 0.4rem;
+  font-size: 1.65rem;
+  font-weight: 700;
+  letter-spacing: -0.015em;
+  color: #ffffff;
+}
+body.theme-community-light .kit-hero__subtitle {
+  margin: 0 auto 1.25rem;
+  max-width: 44rem;
+  font-size: 0.98rem;
+  line-height: 1.55;
+  color: rgba(255, 255, 255, 0.84);
+}
+body.theme-community-light .kit-hero__cta {
+  display: inline-block;
+  background: var(--accent);
+  color: #ffffff;
+  border: 1px solid var(--accent);
+  border-radius: 10px;
+  padding: 0.75rem 1.4rem;
+  font-size: 1rem;
+  font-weight: 600;
+  text-decoration: none;
+  cursor: pointer;
+  transition: background 120ms ease, box-shadow 120ms ease;
+}
+body.theme-community-light .kit-hero__cta:hover,
+body.theme-community-light .kit-hero__cta:focus {
+  background: var(--accent-deep);
+  border-color: var(--accent-deep);
+  color: #ffffff;
+  text-decoration: none;
+  box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3);
+}
+body.theme-community-light .kit-hero__meta {
+  margin: 1rem 0 0;
+  font-size: 0.82rem;
+  color: rgba(255, 255, 255, 0.72);
+}
+
+/* Getting Started in 4 Steps */
+body.theme-community-light .kit-steps__grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 1rem;
+  margin: 0.5rem 0 0;
+}
+body.theme-community-light .kit-step {
+  background: var(--panel-bg);
+  border: 1px solid var(--rule);
+  border-radius: var(--card-radius);
+  padding: 1.25rem 1.1rem 1.1rem;
+  box-shadow: var(--card-shadow);
+}
+body.theme-community-light .kit-step__badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: var(--accent);
+  color: #ffffff;
+  font-size: 1.05rem;
+  font-weight: 700;
+  margin: 0 0 0.7rem;
+}
+body.theme-community-light .kit-step__title {
+  margin: 0 0 0.3rem;
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--brand-navy);
+}
+body.theme-community-light .kit-step__body {
+  margin: 0;
+  font-size: 0.9rem;
+  line-height: 1.5;
+  color: var(--fg-muted);
+}
+
+/* ============================================================
+   Tips cards — adopt the new card radius + shadow (2026-05-18)
+   ============================================================ */
+body.theme-community-light .tip-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 0.85rem;
+}
+body.theme-community-light .tip-card {
+  position: relative;
+  background: var(--panel-bg);
+  border: 1px solid var(--rule);
+  border-radius: var(--card-radius);
+  padding: 0.9rem 1rem 1rem;
+  box-shadow: var(--card-shadow);
+}
+body.theme-community-light .tip-card__badge {
+  display: inline-block;
+  font-size: 0.7rem;
+  font-weight: 600;
+  padding: 0.18rem 0.6rem;
+  border-radius: 999px;
+  background: #ecfdf5;
+  color: var(--accent-deep);
+  border: 1px solid #a7f3d0;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  margin: 0 0 0.55rem;
+}
+body.theme-community-light .tip-card__body {
+  margin: 0 0 0.5rem;
+  font-size: 0.92rem;
+  line-height: 1.55;
+  color: var(--fg);
+  white-space: pre-wrap;
+}
+body.theme-community-light .tip-card__meta {
+  margin: 0;
+  font-size: 0.78rem;
+  color: var(--fg-muted);
+}
+body.theme-community-light .tip-card__delete-form {
+  position: absolute;
+  top: 0.45rem;
+  right: 0.55rem;
+  margin: 0;
+}
+body.theme-community-light .tip-card__delete {
+  background: transparent;
+  border: 0;
+  color: var(--fg-muted);
+  font-size: 1.05rem;
+  line-height: 1;
+  cursor: pointer;
+  padding: 0.15rem 0.4rem;
+  border-radius: 4px;
+}
+body.theme-community-light .tip-card__delete:hover,
+body.theme-community-light .tip-card__delete:focus {
+  color: #b91c1c;
+  background: #fee2e2;
+}
+
+/* ============================================================
+   Help page — orange CTA stays orange; right column adopts new
+   card radius + shadow (2026-05-18). The orange contrast is
+   intentional; only restyle the right-column cards.
+   ============================================================ */
+body.theme-community-light .help-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.2fr);
+  gap: 1.25rem;
+  align-items: start;
+}
+@media (max-width: 800px) {
+  body.theme-community-light .help-grid {
+    grid-template-columns: 1fr;
+  }
+}
+body.theme-community-light .help-cta-orange {
+  background: linear-gradient(135deg, #f97316 0%, #ea580c 100%);
+  color: #ffffff;
+  border-radius: var(--card-radius);
+  padding: 1.5rem 1.4rem;
+  box-shadow: 0 1px 2px rgba(234, 88, 12, 0.18),
+              0 6px 18px rgba(234, 88, 12, 0.12);
+}
+body.theme-community-light .help-cta-orange__icon {
+  font-size: 1.85rem;
+  line-height: 1;
+  margin: 0 0 0.55rem;
+}
+body.theme-community-light .help-cta-orange__title {
+  margin: 0 0 0.4rem;
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: #ffffff;
+}
+body.theme-community-light .help-cta-orange__body {
+  margin: 0 0 1rem;
+  font-size: 0.92rem;
+  line-height: 1.5;
+  color: rgba(255, 255, 255, 0.92);
+}
+body.theme-community-light .help-cta-orange__btn {
+  display: inline-block;
+  background: #ffffff;
+  color: #c2410c;
+  border: 1px solid #ffffff;
+  border-radius: 8px;
+  padding: 0.6rem 1.05rem;
+  font-size: 0.92rem;
+  font-weight: 600;
+  text-decoration: none;
+}
+body.theme-community-light .help-cta-orange__btn:hover,
+body.theme-community-light .help-cta-orange__btn:focus {
+  background: #fff7ed;
+  text-decoration: none;
+}
+body.theme-community-light .help-cta-orange__hint {
+  margin: 0.65rem 0 0;
+  font-size: 0.78rem;
+  color: rgba(255, 255, 255, 0.78);
+}
+body.theme-community-light .help-right-col {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+body.theme-community-light .help-tips-card {
+  background: var(--panel-bg);
+  border: 1px solid var(--rule);
+  border-radius: var(--card-radius);
+  padding: 1.1rem 1.25rem 1.25rem;
+  box-shadow: var(--card-shadow);
+}
+body.theme-community-light .help-tips-card__title {
+  margin: 0 0 0.6rem;
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--brand-navy);
+}
+body.theme-community-light .help-tips-card__list {
+  margin: 0;
+  padding-left: 1.2rem;
+  font-size: 0.9rem;
+  line-height: 1.6;
+  color: var(--fg);
+}
+body.theme-community-light .help-tips-card__list a {
+  color: var(--accent-deep);
+  text-decoration: none;
+  border-bottom: 1px dotted var(--accent);
+}
+body.theme-community-light .help-tips-card__list a:hover {
+  color: var(--accent);
+}
+body.theme-community-light .help-fix-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.65rem;
+}
+body.theme-community-light .help-fix-item {
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+  padding-left: 0.75rem;
+  border-left: 3px solid var(--accent);
+}
+body.theme-community-light .help-fix-item strong {
+  font-size: 0.92rem;
+  color: var(--brand-navy);
+}
+body.theme-community-light .help-fix-item span {
+  font-size: 0.88rem;
+  color: var(--fg-muted);
+  line-height: 1.5;
+}
+
+/* ============================================================
+   Edit-row inline-edit corner softening — match the new 12px
+   panel radius rather than the legacy 6px corner. (2026-05-18)
+   ============================================================ */
+body.theme-community-light .edit-row details[open] {
+  border-radius: 0 8px 8px 0;
+}
+
+/* ============================================================
+   /dashboard light theme (2026-05-18)
+   ------------------------------------------------------------
+   The dashboard reuses this stylesheet (templates/dashboard.html
+   sets body.theme-community-light + pulls in community-light.css)
+   so the Hub palette — navy text, brighter teal accent, off-white
+   bg, 12px card radius, soft shadow — applies without forking a
+   second light stylesheet. Selectors below ONLY style dashboard
+   surfaces (`.dash-*`) so /community/* stays untouched.
+
+   Top-to-bottom on /dashboard:
+     1. Larry hero               → white card, portrait + identity
+     2. PKA Starter Kit          → navy-gradient banner, teal CTA
+     3. FAQ accordion            → 9 white cards
+     4. Try saying               → white card, teal-accented rows
+     5. Need help? Email Rick    → small teal CTA section
+   ============================================================ */
+
+/* ---- 1. Larry hero card ----
+   White surface with comfortable padding, portrait + navy name +
+   muted role text. The legacy dark rule `.dash-hero` sets the
+   flex layout; we re-apply the same flex idiom here so we don't
+   depend on the dark rule winning the cascade — explicit beats
+   implicit when two stylesheets are in play. */
+body.theme-community-light .dash-hero {
+  display: flex;
+  align-items: center;
+  gap: 1.1rem;
+  background: var(--panel-bg);
+  border: 1px solid var(--rule);
+  border-radius: var(--card-radius);
+  padding: 1.5rem 1.6rem;
+  box-shadow: var(--card-shadow);
+  margin: 0 0 1.5rem;
+}
+body.theme-community-light .dash-hero__portrait {
+  width: 96px;
+  height: 96px;
+  border-radius: 50%;
+  object-fit: cover;
+  flex: 0 0 auto;
+  background: var(--rule);
+}
+body.theme-community-light .dash-hero__text {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+}
+body.theme-community-light .dash-hero__name {
+  margin: 0;
+  font-size: 1.35rem;
+  font-weight: 700;
+  letter-spacing: -0.015em;
+  color: var(--brand-navy);
+}
+body.theme-community-light .dash-hero__role {
+  margin: 0;
+  font-size: 0.95rem;
+  line-height: 1.5;
+  color: var(--fg-muted);
+}
+@media (max-width: 30rem) {
+  body.theme-community-light .dash-hero {
+    flex-direction: column;
+    align-items: flex-start;
+    text-align: left;
+  }
+}
+
+/* ---- 2. PKA Starter Kit banner card ----
+   Smaller cousin of `.kit-hero` from /community/download — same
+   navy gradient + teal CTA, but condensed because the Larry hero
+   already owns the top of the page. White text on the gradient. */
+body.theme-community-light .dash-launch-kit {
+  background: linear-gradient(135deg, var(--brand-navy-dark) 0%,
+                              var(--brand-navy-light) 100%);
+  color: #ffffff;
+  border: 0;
+  border-radius: var(--card-radius);
+  padding: 1.5rem 1.6rem;
+  box-shadow: 0 1px 2px rgba(11, 37, 69, 0.08),
+              0 6px 18px rgba(11, 37, 69, 0.08);
+}
+body.theme-community-light .dash-section .dash-launch-kit h2,
+body.theme-community-light .dash-section .dash-launch-kit__title {
+  margin: 0 0 0.4rem;
+  font-size: 1.25rem;
+  font-weight: 700;
+  letter-spacing: -0.015em;
+  color: #ffffff;
+}
+body.theme-community-light .dash-launch-kit__body {
+  margin: 0 0 1rem;
+  font-size: 0.95rem;
+  line-height: 1.55;
+  color: rgba(255, 255, 255, 0.86);
+  max-width: 44rem;
+}
+/* Promote the inner CTA to read as the prominent "Download" call —
+   teal background, white text, slightly larger than the default
+   `.cta`. Inherit `.cta`'s hover transitions for free. */
+body.theme-community-light .dash-launch-kit .cta {
+  background: var(--accent);
+  color: #ffffff;
+  border-color: var(--accent);
+  border-radius: 10px;
+  padding: 0.7rem 1.3rem;
+  font-size: 0.98rem;
+  font-weight: 600;
+}
+body.theme-community-light .dash-launch-kit .cta:hover,
+body.theme-community-light .dash-launch-kit .cta:focus {
+  background: var(--accent-deep);
+  border-color: var(--accent-deep);
+  color: #ffffff;
+  box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3);
+}
+
+/* ---- 3. FAQ section ----
+   Section heading in navy; each `.dash-faq-item` is a stand-alone
+   white card with the standard 12px radius + soft shadow. Cards
+   stack with a comfortable gap. The native `<summary>` marker is
+   kept (no `list-style: none`) so the disclosure triangle hints
+   at the open/close affordance. */
+body.theme-community-light .dash-section h2 {
+  margin: 0 0 0.85rem;
+  font-size: 1.15rem;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  color: var(--brand-navy);
+}
+body.theme-community-light .dash-section { margin: 0 0 1.5rem; }
+body.theme-community-light .dash-faq {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+}
+body.theme-community-light .dash-faq-item {
+  background: var(--panel-bg);
+  border: 1px solid var(--rule);
+  border-radius: var(--card-radius);
+  box-shadow: var(--card-shadow);
+  padding: 0.85rem 1.1rem;
+}
+body.theme-community-light .dash-faq-item > summary {
+  cursor: pointer;
+  color: var(--brand-navy);
+  font-size: 0.95rem;
+  font-weight: 600;
+  list-style-position: outside;
+  text-decoration: none;
+}
+body.theme-community-light .dash-faq-item > summary:hover,
+body.theme-community-light .dash-faq-item > summary:focus {
+  color: var(--accent);
+  text-decoration: none;
+  outline: none;
+}
+body.theme-community-light .dash-faq-item[open] > summary {
+  margin-bottom: 0.55rem;
+  color: var(--brand-navy);
+}
+body.theme-community-light .dash-faq-body {
+  font-size: 0.92rem;
+  line-height: 1.55;
+  color: var(--fg);
+}
+body.theme-community-light .dash-faq-body p {
+  margin: 0.25rem 0 0.5rem;
+  color: var(--fg);
+}
+body.theme-community-light .dash-faq-body p:last-child { margin-bottom: 0; }
+body.theme-community-light .dash-faq-steps {
+  margin: 0.4rem 0 0.25rem;
+  padding-left: 1.25rem;
+  color: var(--fg);
+}
+body.theme-community-light .dash-faq-steps li {
+  padding: 0.18rem 0;
+  line-height: 1.55;
+}
+body.theme-community-light .dash-faq-body code,
+body.theme-community-light .dash-faq-steps code {
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-size: 0.86rem;
+  color: var(--accent-deep);
+  background: #ecfdf5;
+  border: 1px solid #a7f3d0;
+  border-radius: 4px;
+  padding: 0.05rem 0.35rem;
+}
+/* The 11-member team list inside the "Who's on the team?" item. */
+body.theme-community-light .dash-faq-team-list {
+  list-style: none;
+  margin: 0.2rem 0 0;
+  padding: 0;
+}
+body.theme-community-light .dash-faq-team-list li {
+  padding: 0.45rem 0;
+  border-bottom: 1px solid var(--rule);
+  font-size: 0.9rem;
+  line-height: 1.5;
+  color: var(--fg);
+}
+body.theme-community-light .dash-faq-team-list li:last-child {
+  border-bottom: 0;
+}
+body.theme-community-light .dash-faq-team-list strong {
+  color: var(--brand-navy);
+}
+
+/* ---- Inbox-function FAQ item: sub-headings, italic call-outs, lists ----
+   Scoped to .dash-faq-body so only the new "What is the function of the
+   Owner's Inbox and Team Inbox?" entry picks these up; other FAQ items
+   don't render <h4>/<em>/<ul> in this pattern. (2026-05-18) */
+body.theme-community-light .dash-faq-body h4 {
+  margin: 1rem 0 0.4rem;
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--accent-deep);
+  letter-spacing: -0.005em;
+}
+body.theme-community-light .dash-faq-body h4:first-child {
+  margin-top: 0;
+}
+body.theme-community-light .dash-faq-body em {
+  font-style: italic;
+  color: var(--fg);
+  opacity: 0.85;
+}
+body.theme-community-light .dash-faq-body ul {
+  margin: 0.3rem 0 0.6rem;
+  padding-left: 1.25rem;
+  color: var(--fg);
+}
+body.theme-community-light .dash-faq-body ul li {
+  padding: 0.12rem 0;
+  line-height: 1.5;
+}
+
+/* ---- 4. Try saying card ----
+   White card, navy section title, four rows of teal-accented
+   monospace prompts on the left with a teal copy button on the
+   right. Reuses `.cta`'s hover transitions; the button itself
+   is teal background → deeper teal on hover. */
+body.theme-community-light .dash-try-saying {
+  background: var(--panel-bg);
+  border: 1px solid var(--rule);
+  border-radius: var(--card-radius);
+  box-shadow: var(--card-shadow);
+  padding: 1.2rem 1.35rem;
+}
+body.theme-community-light .dash-try-saying h2 {
+  margin: 0 0 0.85rem;
+  font-size: 1.15rem;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  color: var(--brand-navy);
+}
+body.theme-community-light .dash-try-row {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.55rem 0;
+  border-bottom: 1px solid var(--rule);
+}
+body.theme-community-light .dash-try-row:last-child {
+  border-bottom: 0;
+}
+body.theme-community-light .dash-try-row code {
+  flex: 1;
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-size: 0.9rem;
+  color: var(--accent-deep);
+  background: transparent;
+  word-break: break-word;
+}
+body.theme-community-light .dash-try-copy {
+  flex: 0 0 auto;
+  display: inline-block;
+  padding: 0.35rem 0.85rem;
+  border: 1px solid var(--accent);
+  border-radius: 6px;
+  background: var(--accent);
+  color: #ffffff;
+  font: inherit;
+  font-size: 0.8rem;
+  font-weight: 600;
+  cursor: pointer;
+  min-width: 4.6rem;
+  text-align: center;
+  transition: background 120ms ease, border-color 120ms ease,
+              box-shadow 120ms ease;
+}
+body.theme-community-light .dash-try-copy:hover,
+body.theme-community-light .dash-try-copy:focus {
+  background: var(--accent-deep);
+  border-color: var(--accent-deep);
+  color: #ffffff;
+  outline: none;
+  box-shadow: 0 2px 6px rgba(16, 185, 129, 0.22);
+}
+body.theme-community-light .dash-try-copy.is-copied {
+  background: var(--accent-deep);
+  border-color: var(--accent-deep);
+  color: #ffffff;
+}
+
+/* ---- 5. Email Rick CTA ----
+   Small centered section beneath Try-saying. Uses the standard
+   teal `.cta` look promoted slightly for prominence. */
+body.theme-community-light .dash-help-cta {
+  display: flex;
+  justify-content: center;
+  margin: 1.5rem 0 0;
+}
+body.theme-community-light .dash-help-cta-btn {
+  background: var(--accent);
+  color: #ffffff;
+  border: 1px solid var(--accent);
+  border-radius: 10px;
+  padding: 0.7rem 1.3rem;
+  font-size: 0.95rem;
+  font-weight: 600;
+  text-decoration: none;
+  transition: background 120ms ease, border-color 120ms ease,
+              box-shadow 120ms ease;
+}
+body.theme-community-light .dash-help-cta-btn:hover,
+body.theme-community-light .dash-help-cta-btn:focus {
+  background: var(--accent-deep);
+  border-color: var(--accent-deep);
+  color: #ffffff;
+  text-decoration: none;
+  box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3);
+}
+
+/* ---- Dashboard outer panel + page title ----
+   The dashboard's content is wrapped in `<section class="panel">`
+   which already inherits the white-card chrome from the panel rule
+   higher up. Add a navy page heading and let `<main>` use a
+   comfortable reading width — narrower than the Deployment Tracker
+   table (1200px) but wider than the legacy 42rem so the FAQ cards
+   breathe. */
+body.theme-community-light main:has(.dash-hero) {
+  max-width: min(880px, 95vw);
+}
+body.theme-community-light .panel > h1 {
+  margin: 0 0 1.2rem;
+  font-size: 1.65rem;
+  font-weight: 700;
+  letter-spacing: -0.015em;
+  color: var(--brand-navy);
+}
+
+/* ============================================================
+   FAQ vertical workflow diagram (2026-05-18)
+   ------------------------------------------------------------
+   Used inside the "How does work flow through Larry?" FAQ item.
+   Each step renders as a small centered pill; a teal down-arrow
+   sits between steps via ::before on every li after the first.
+   First and last steps get a navy-gradient endpoint treatment
+   to mark them as the human-touching ends of the flow.
+   ============================================================ */
+body.theme-community-light .dash-faq-flow {
+  list-style: none;
+  padding: 0;
+  margin: 0.5rem 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0;
+}
+body.theme-community-light .dash-faq-flow li {
+  padding: 0.5rem 1rem;
+  background: #ffffff;
+  border: 1px solid var(--rule);
+  border-radius: 8px;
+  font-size: 0.9rem;
+  color: var(--fg);
+  text-align: center;
+  box-shadow: var(--card-shadow);
+  max-width: 360px;
+}
+body.theme-community-light .dash-faq-flow li:not(:first-child)::before {
+  content: "↓";
+  display: block;
+  color: var(--accent);
+  font-size: 1.1rem;
+  padding: 0.35rem 0;
+  text-align: center;
+}
+/* Endpoint treatment for the human-facing rows: navy gradient,
+   white text, transparent border so the pill reads as a sealed
+   cap on each end of the flow. Matches the kit-hero gradient. */
+body.theme-community-light .dash-faq-flow li:first-child,
+body.theme-community-light .dash-faq-flow li:last-child {
+  background: linear-gradient(135deg, var(--brand-navy-dark),
+                              var(--brand-navy-light));
+  color: #ffffff;
+  border-color: transparent;
+  font-weight: 600;
+}
+/* The arrow that lives on `li:last-child::before` is the connector
+   from "Larry Reviews + Synthesizes" → "Final Recommendation to Owner".
+   Keep it teal for visual continuity with the other arrows; the
+   endpoint styling above only repaints the pill, not its ::before. */

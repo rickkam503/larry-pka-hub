@@ -1,0 +1,371 @@
+/* ============================================================
+   dashboard-light.css — AcuityFirst.ai brand treatment, scoped.
+   ------------------------------------------------------------
+   Loaded ONLY by /dashboard (templates/dashboard.html sets
+   body.theme-dash-light via the body_class block, and pulls
+   this stylesheet in via the extra_head block).
+
+   Every selector here is prefixed with `body.theme-dash-light`
+   so /workspace, /journal, /contacts, /interactions, /search,
+   and / are 100% unaffected — they still render the dark
+   theme from style.css.
+
+   Palette (AcuityFirst.ai brand kit, 2026-05-16):
+     navy  #0b2545   — primary text + headings
+     azure #2563eb   — accent links + Larry PKA script
+     teal  #0891b2   — reserved for future use
+     cloud #f7f8fb   — page background
+     white #ffffff   — card surface
+     steel #6b7280   — muted text
+     rule  #e5e7eb   — soft borders
+   ============================================================ */
+
+body.theme-dash-light {
+  /* Brand-aligned token overrides for this page only.
+     These shadow the :root tokens in style.css inside the
+     theme-dash-light scope, so every existing rule that reads
+     var(--fg) / var(--bg) / etc. inherits the light treatment
+     without touching the dark stylesheet. */
+  --fg: #0b2545;
+  --fg-muted: #6b7280;
+  --bg: #f7f8fb;
+  --rule: #e5e7eb;
+  --accent: #0b2545;             /* deep navy for primary text/buttons */
+  --accent-deep: #07182f;
+  --accent-azure: #2563eb;       /* link/CTA hover accent */
+  --panel-bg: #ffffff;
+  --brand-script: #2563eb;
+
+  background: var(--bg);
+  color: var(--fg);
+  /* Inter shipped from Google Fonts in dashboard.html's extra_head.
+     If offline, the OS sans stack takes over without layout shift. */
+  font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI",
+               system-ui, sans-serif;
+  font-feature-settings: "cv02", "cv03", "cv04", "cv11";
+}
+
+/* Even inside a media query, the dark-scheme override in style.css
+   only fires when the body doesn't otherwise set its colors. Pin the
+   light palette explicitly so OS dark mode can't recapture this page. */
+@media (prefers-color-scheme: dark) {
+  body.theme-dash-light {
+    --fg: #0b2545;
+    --fg-muted: #6b7280;
+    --bg: #f7f8fb;
+    --rule: #e5e7eb;
+    --accent: #0b2545;
+    --accent-deep: #07182f;
+    --accent-azure: #2563eb;
+    --panel-bg: #ffffff;
+    --brand-script: #2563eb;
+    background: var(--bg);
+    color: var(--fg);
+  }
+}
+
+/* ---- Header / nav / footer chrome ---- */
+body.theme-dash-light .site-header,
+body.theme-dash-light .site-footer {
+  background: var(--bg);
+  border-color: var(--rule);
+}
+body.theme-dash-light .site-header .brand {
+  color: var(--accent);
+  letter-spacing: 0.02em;
+}
+body.theme-dash-light .site-header .subtitle {
+  color: var(--fg-muted);
+}
+body.theme-dash-light .site-nav {
+  background: var(--bg);
+  border-color: var(--rule);
+}
+body.theme-dash-light .site-nav a { color: var(--fg-muted); }
+body.theme-dash-light .site-nav a:hover,
+body.theme-dash-light .site-nav a:focus {
+  color: var(--accent-azure);
+  text-decoration: underline;
+}
+body.theme-dash-light .site-nav a[aria-current="page"] {
+  color: var(--accent);
+  font-weight: 600;
+}
+body.theme-dash-light .site-footer { color: var(--fg-muted); }
+
+/* ---- Main panel ----
+   The big card the whole dashboard sits inside. Position relative so
+   the brand corner can absolutely position into the top-right. */
+body.theme-dash-light main { padding: 2rem 1rem 3rem; }
+
+body.theme-dash-light .panel {
+  position: relative;
+  background: var(--panel-bg);
+  border: 1px solid var(--rule);
+  border-radius: 10px;
+  padding: 2rem 1.75rem 2.25rem;
+  box-shadow: 0 1px 2px rgba(11, 37, 69, 0.04),
+              0 4px 12px rgba(11, 37, 69, 0.03);
+}
+
+body.theme-dash-light h1 {
+  font-size: 1.6rem;
+  font-weight: 700;
+  letter-spacing: -0.015em;
+  color: var(--accent-deep);
+  margin: 0 0 1.5rem;
+}
+
+body.theme-dash-light .dash-section { margin: 0 0 2rem; }
+body.theme-dash-light .dash-section h2 {
+  font-size: 0.95rem;
+  font-weight: 600;
+  letter-spacing: -0.005em;
+  color: var(--accent-deep);
+  margin: 0 0 0.75rem;
+  text-transform: none;
+}
+
+/* ---- Hero strip (Larry) ---- */
+body.theme-dash-light .dash-hero {
+  background: linear-gradient(135deg, #ffffff 0%, #f0f5ff 100%);
+  border: 1px solid #dbe5f5;
+  border-radius: 10px;
+  padding: 1.1rem 1.25rem;
+  gap: 1.25rem;
+}
+body.theme-dash-light .dash-hero__portrait {
+  background: var(--rule);
+  border: 2px solid #ffffff;
+  box-shadow: 0 2px 8px rgba(11, 37, 69, 0.12);
+}
+body.theme-dash-light .dash-hero__name {
+  color: var(--accent-deep);
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  font-size: 1.2rem;
+}
+body.theme-dash-light .dash-hero__role {
+  color: #314866;       /* navy-tinted body copy, not pure muted gray */
+  font-size: 0.95rem;
+  line-height: 1.5;
+}
+
+/* ---- Get started: 5 steps ---- */
+body.theme-dash-light .dash-step {
+  border-bottom: 1px solid var(--rule);
+  padding: 1rem 0;
+}
+body.theme-dash-light .dash-step:last-of-type { border-bottom: 0; }
+body.theme-dash-light .dash-step__num {
+  background: var(--accent-deep);
+  color: #ffffff;
+  width: 2.1rem;
+  height: 2.1rem;
+  font-weight: 700;
+  box-shadow: 0 2px 4px rgba(11, 37, 69, 0.18);
+}
+body.theme-dash-light .dash-step__title {
+  color: var(--accent-deep);
+  font-size: 1rem;
+  font-weight: 600;
+  letter-spacing: -0.005em;
+}
+body.theme-dash-light .dash-step__body { color: #2c3e5a; }
+body.theme-dash-light .dash-step__cmd code {
+  color: var(--accent-deep);
+  background: #f3f6fb;
+  padding: 0.35rem 0.55rem;
+  border-radius: 4px;
+  border: 1px solid var(--rule);
+  font-size: 0.85rem;
+}
+
+/* ---- Try saying card ---- */
+body.theme-dash-light .dash-try-saying {
+  background: #ffffff;
+  border: 1px solid var(--rule);
+  border-radius: 10px;
+  padding: 1.1rem 1.25rem;
+}
+body.theme-dash-light .dash-try-row {
+  border-bottom: 1px solid var(--rule);
+  padding: 0.5rem 0;
+}
+body.theme-dash-light .dash-try-row:last-child { border-bottom: 0; }
+body.theme-dash-light .dash-try-row code {
+  color: var(--accent-deep);
+  background: #f3f6fb;
+  padding: 0.35rem 0.55rem;
+  border-radius: 4px;
+  border: 1px solid var(--rule);
+  font-size: 0.85rem;
+}
+
+/* Copy button: neutral default, azure on hover. */
+body.theme-dash-light .dash-try-copy {
+  color: var(--fg-muted);
+  border: 1px solid var(--rule);
+  background: #ffffff;
+}
+body.theme-dash-light .dash-try-copy:hover,
+body.theme-dash-light .dash-try-copy:focus {
+  color: #ffffff;
+  background: var(--accent-azure);
+  border-color: var(--accent-azure);
+}
+body.theme-dash-light .dash-try-copy.is-copied {
+  color: #ffffff;
+  background: var(--accent-deep);
+  border-color: var(--accent-deep);
+}
+
+/* ---- Resources & status (2x2 grid) ---- */
+body.theme-dash-light .dash-resources-grid { gap: 1rem; }
+body.theme-dash-light .dash-resource-card {
+  background: #ffffff;
+  border: 1px solid var(--rule);
+  border-radius: 10px;
+  padding: 1.1rem 1.25rem;
+  transition: box-shadow 120ms ease, border-color 120ms ease;
+}
+body.theme-dash-light .dash-resource-card:hover {
+  border-color: #cdd9ee;
+  box-shadow: 0 2px 6px rgba(11, 37, 69, 0.05);
+}
+body.theme-dash-light .dash-resource-card__title {
+  color: var(--accent-deep);
+  font-weight: 600;
+  font-size: 1rem;
+  letter-spacing: -0.005em;
+}
+body.theme-dash-light .dash-resource-card__body { color: #2c3e5a; }
+body.theme-dash-light .dash-resource-note { color: var(--fg-muted); }
+
+/* Q&A details/summary rows */
+body.theme-dash-light .dash-resource-qa {
+  border-bottom: 1px solid var(--rule);
+}
+body.theme-dash-light .dash-resource-qa:last-of-type { border-bottom: 0; }
+body.theme-dash-light .dash-resource-qa > summary {
+  color: var(--accent-deep);
+  font-weight: 500;
+}
+body.theme-dash-light .dash-resource-qa > summary:hover,
+body.theme-dash-light .dash-resource-qa > summary:focus {
+  color: var(--accent-azure);
+  text-decoration: underline;
+}
+body.theme-dash-light .dash-resource-qa > p { color: #2c3e5a; }
+body.theme-dash-light .dash-resource-qa code {
+  background: #f3f6fb;
+  color: var(--accent-deep);
+  padding: 0.1rem 0.35rem;
+  border-radius: 3px;
+  border: 1px solid var(--rule);
+}
+
+/* FAQ portrait — keep color-neutral but lighten the border for the
+   white card background. */
+body.theme-dash-light .dash-faq-portrait {
+  border: 1px solid var(--rule);
+  background: #ffffff;
+}
+
+/* ---- CTAs ----
+   Outlined navy by default; fills azure with white text on hover. */
+body.theme-dash-light .cta {
+  border: 1px solid var(--accent-deep);
+  color: var(--accent-deep);
+  background: #ffffff;
+  font-weight: 500;
+}
+body.theme-dash-light .cta:hover,
+body.theme-dash-light .cta:focus {
+  background: var(--accent-azure);
+  border-color: var(--accent-azure);
+  color: #ffffff;
+}
+
+/* ---- Users status / deployments list ---- */
+body.theme-dash-light .dash-deployments li strong {
+  color: var(--accent-deep);
+  font-weight: 600;
+}
+body.theme-dash-light .dash-deployments li .muted {
+  color: var(--fg-muted);
+}
+body.theme-dash-light .muted { color: var(--fg-muted); }
+
+/* ============================================================
+   Brand corner — AcuityFirst.ai + Larry PKA wordmark
+   ------------------------------------------------------------
+   Absolutely positioned in the top-right of .panel so it never
+   pushes the existing layout around. On narrow viewports it
+   shifts to a static, right-aligned block above the H1 so it
+   doesn't overlap.
+   ============================================================ */
+.dash-brand-corner {
+  position: absolute;
+  top: 1.25rem;
+  right: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 0.1rem;
+  text-align: right;
+  line-height: 1.15;
+  user-select: none;
+}
+
+.dash-brand-corner__script {
+  font-family: "Brush Script MT", "Lucida Handwriting", "Apple Chancery",
+               "Snell Roundhand", cursive;
+  font-style: italic;
+  font-weight: 400;
+  font-size: 1.4rem;
+  color: var(--brand-script, #2563eb);
+  letter-spacing: 0.01em;
+  /* Slight optical tilt so the script reads as a brand mark, not body
+     copy in italics. */
+  transform: translateY(-1px);
+}
+
+.dash-brand-corner__wordmark {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI",
+               system-ui, sans-serif;
+  font-weight: 600;
+  font-size: 0.95rem;
+  color: var(--accent-deep, #0b2545);
+  letter-spacing: -0.005em;
+}
+
+.dash-brand-corner__mark {
+  color: var(--accent-deep, #0b2545);
+  flex: 0 0 auto;
+}
+
+.dash-brand-corner__tagline {
+  font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI",
+               system-ui, sans-serif;
+  font-size: 0.65rem;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.18em;
+  color: var(--fg-muted, #6b7280);
+  margin-top: 0.1rem;
+}
+
+/* On narrow screens push the brand mark above the H1 so it can't crash
+   into the heading. */
+@media (max-width: 36rem) {
+  body.theme-dash-light .panel { padding-top: 1rem; }
+  .dash-brand-corner {
+    position: static;
+    align-items: flex-end;
+    margin: 0 0 1rem;
+  }
+}

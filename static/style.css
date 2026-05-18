@@ -1,0 +1,869 @@
+:root {
+  --fg: #1a1a1a;
+  --fg-muted: #666;
+  --bg: #fafafa;
+  --rule: #e0e0e0;
+  --accent: #2a2a2a;
+  --max-width: 42rem;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --fg: #e8e8e8;
+    --fg-muted: #999;
+    --bg: #1a1a1a;
+    --rule: #333;
+    --accent: #f0f0f0;
+  }
+}
+
+* { box-sizing: border-box; }
+
+html, body {
+  margin: 0;
+  padding: 0;
+  background: var(--bg);
+  color: var(--fg);
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif;
+  font-size: 16px;
+  line-height: 1.55;
+}
+
+body { display: flex; flex-direction: column; min-height: 100vh; }
+
+main { flex: 1; max-width: var(--max-width); margin: 0 auto; padding: 1.5rem 1rem; width: 100%; }
+
+.site-header, .site-footer {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: 1rem;
+  width: 100%;
+  border-bottom: 1px solid var(--rule);
+}
+.site-footer { border-bottom: 0; border-top: 1px solid var(--rule); color: var(--fg-muted); }
+.site-header .brand { font-weight: 600; letter-spacing: 0.02em; }
+.site-header .subtitle { color: var(--fg-muted); margin-left: 0.5rem; }
+
+.site-nav {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: 0.5rem 1rem;
+  width: 100%;
+  border-bottom: 1px solid var(--rule);
+  display: flex;
+  gap: 1rem;
+  font-size: 0.9rem;
+}
+.site-nav a { color: var(--fg-muted); text-decoration: none; }
+.site-nav a:hover, .site-nav a:focus { color: var(--accent); text-decoration: underline; }
+.site-nav a[aria-current="page"] { color: var(--accent); font-weight: 500; }
+
+.notice {
+  border: 1px dashed var(--rule);
+  padding: 1rem;
+  border-radius: 4px;
+  color: var(--fg-muted);
+}
+.notice h2 { margin: 0 0 0.5rem; font-size: 1rem; color: var(--accent); }
+.notice code { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; }
+
+.backlinks { margin-top: 2rem; padding-top: 1rem; border-top: 1px solid var(--rule); }
+.backlinks h2 { font-size: 1rem; font-weight: 500; margin: 0 0 0.5rem; color: var(--accent); }
+.backlinks ul { list-style: none; padding: 0; margin: 0; }
+.backlinks li { padding: 0.25rem 0; font-size: 0.9rem; color: var(--fg-muted); }
+
+h1 { font-size: 1.25rem; font-weight: 600; margin: 0 0 1rem; }
+
+.panel { padding: 0.5rem 0 2rem; }
+
+.journal-list { list-style: none; padding: 0; margin: 0; }
+.journal-row { padding: 1rem 0; border-bottom: 1px solid var(--rule); }
+.journal-row__header { display: flex; gap: 0.75rem; align-items: baseline; color: var(--fg-muted); font-size: 0.9rem; }
+.journal-row__header time { color: var(--accent); font-weight: 500; }
+.journal-row .body { margin: 0.4rem 0; white-space: pre-wrap; }
+.journal-row__footer { color: var(--fg-muted); font-size: 0.8rem; }
+
+.empty-state { color: var(--fg-muted); padding: 0.5rem 0; }
+.empty-state .rule { color: var(--rule); margin: 0 0 0.5rem; font-family: ui-monospace, SFMono-Regular, Menlo, monospace; }
+.empty-state code { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; background: transparent; }
+
+/* ---- Generic entity list (contacts, interactions, due) ---- */
+.panel__header { display: flex; align-items: baseline; justify-content: space-between; gap: 1rem; margin-bottom: 0.75rem; }
+.panel__header h1 { margin: 0; }
+.muted { color: var(--fg-muted); }
+.cta {
+  display: inline-block; padding: 0.35rem 0.75rem; border: 1px solid var(--accent);
+  border-radius: 4px; color: var(--accent); text-decoration: none; font-size: 0.9rem;
+  background: transparent; cursor: pointer;
+}
+.cta:hover, .cta:focus { background: var(--accent); color: var(--bg); }
+.link-button { color: var(--fg-muted); text-decoration: underline; font-size: 0.9rem; }
+
+.entity-list { list-style: none; padding: 0; margin: 0; }
+.entity-row { padding: 0.85rem 0; border-bottom: 1px solid var(--rule); }
+.entity-row__header { display: flex; gap: 0.5rem; align-items: baseline; flex-wrap: wrap; }
+.entity-row__title { font-weight: 500; color: var(--accent); text-decoration: none; }
+.entity-row__title:hover, .entity-row__title:focus { text-decoration: underline; }
+.entity-row .body { margin: 0.4rem 0; white-space: pre-wrap; }
+.entity-row__footer { color: var(--fg-muted); font-size: 0.8rem; }
+
+.entity-row--due { background: transparent; }
+.entity-row--overdue .badge--followup {
+  background: #fff5f5; color: #a23232; border-color: #f1c1c1;
+}
+@media (prefers-color-scheme: dark) {
+  .entity-row--overdue .badge--followup { background: #3a1a1a; color: #ffb1b1; border-color: #5a2424; }
+}
+
+.badge {
+  display: inline-block; font-size: 0.75rem; padding: 0.1rem 0.4rem;
+  border: 1px solid var(--rule); border-radius: 999px; color: var(--fg-muted);
+}
+.badge--followup { color: var(--accent); }
+
+/* ---- Detail kv ---- */
+.kv { display: grid; grid-template-columns: max-content 1fr; gap: 0.4rem 1rem; margin: 0.5rem 0 1.5rem; }
+.kv dt { color: var(--fg-muted); font-size: 0.85rem; }
+.kv dd { margin: 0; color: var(--fg); }
+.kv dd.body { white-space: pre-wrap; }
+
+/* ---- Forms ---- */
+.entity-form label { display: block; margin: 0.85rem 0; }
+.entity-form label > span { display: block; font-size: 0.85rem; color: var(--fg-muted); margin-bottom: 0.25rem; }
+.entity-form label > span em { color: #a23232; font-style: normal; }
+.entity-form input[type="text"],
+.entity-form input[type="number"],
+.entity-form input[type="date"],
+.entity-form input[type="datetime-local"],
+.entity-form select,
+.entity-form textarea {
+  width: 100%; padding: 0.5rem; font: inherit; color: var(--fg);
+  background: var(--bg); border: 1px solid var(--rule); border-radius: 4px;
+}
+.entity-form textarea { resize: vertical; }
+.entity-form .form-row { display: flex; gap: 0.75rem; }
+.entity-form .form-row > label { flex: 1; }
+.entity-form .form-actions { display: flex; gap: 0.75rem; align-items: center; margin-top: 1.25rem; }
+.entity-form .kbd-hint { margin-left: auto; }
+.error-box {
+  border: 1px solid #c89a9a; background: #fff5f5; color: #6a1a1a;
+  padding: 0.75rem; border-radius: 4px; margin: 0.5rem 0 1rem;
+}
+.error-box ul { margin: 0.25rem 0 0 1rem; padding: 0; }
+@media (prefers-color-scheme: dark) {
+  .error-box { background: #2a1a1a; color: #ffb1b1; border-color: #5a2424; }
+}
+
+/* ---- Tag input (Wren Pattern 2) ---- */
+.tag-input-wrap { position: relative; }
+.tag-input { display: flex; flex-wrap: wrap; gap: 0.4rem; padding: 0.4rem; border: 1px solid var(--rule); border-radius: 4px; align-items: center; }
+.tag-chips { list-style: none; padding: 0; margin: 0; display: contents; }
+.tag-chip {
+  display: inline-flex; align-items: center; gap: 0.25rem;
+  background: var(--rule); color: var(--accent); border-radius: 999px;
+  padding: 0.1rem 0.5rem; font-size: 0.85rem;
+}
+.tag-chip__remove {
+  background: transparent; border: 0; color: var(--fg-muted); cursor: pointer;
+  font-size: 1rem; line-height: 1; padding: 0 0 0 0.1rem;
+}
+.tag-chip__remove:hover { color: var(--accent); }
+/* Read-only variant on detail views: same chip look, no entry/remove
+   affordances. The wrapping <ul> needs to be a real flex container here
+   (no parent flex like the input wrapper provides), so we override the
+   `display: contents` from the editable variant. */
+.tag-chips--readonly { display: flex; flex-wrap: wrap; gap: 0.35rem; }
+.tag-chip--readonly { cursor: default; }
+.tag-input__entry { flex: 1; min-width: 8rem; border: 0; padding: 0.25rem; background: transparent; color: var(--fg); font: inherit; outline: none; }
+.tag-input__suggestions {
+  position: absolute; left: 0; right: 0; top: 100%; z-index: 5;
+  list-style: none; margin: 0.25rem 0 0; padding: 0.25rem 0;
+  background: var(--bg); border: 1px solid var(--rule); border-radius: 4px;
+  max-height: 12rem; overflow-y: auto;
+}
+.tag-suggestion { padding: 0.35rem 0.75rem; cursor: pointer; font-size: 0.9rem; }
+.tag-suggestion:hover, .tag-suggestion.is-highlighted { background: var(--rule); color: var(--accent); }
+.tag-suggestion--create { color: var(--fg-muted); border-top: 1px dashed var(--rule); font-style: italic; }
+.tag-suggestion--create:hover, .tag-suggestion--create.is-highlighted { color: var(--accent); font-style: normal; }
+
+/* ---- Blocked-notice fix-command code block ---- */
+/* Round 4: when the blocked notice ships a copy-paste fix command (e.g.
+   the v2 schema-promote sqlite3 call), render it as a real code block
+   so Rick can triple-click to select the whole line. */
+.fix-command {
+  background: var(--rule);
+  color: var(--accent);
+  padding: 0.6rem 0.75rem;
+  border-radius: 4px;
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-size: 0.85rem;
+  overflow-x: auto;
+  white-space: pre-wrap;
+  word-break: break-all;
+  margin: 0.5rem 0 0.75rem;
+}
+.fix-command code { background: transparent; padding: 0; }
+
+/* ---- Dashboard (Round 4) ---- */
+/* Stat cards row: 4 equal-width tiles linking into the deeper view. */
+.dash-stats {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 0.6rem;
+  margin: 0 0 1.5rem;
+}
+@media (max-width: 36rem) {
+  .dash-stats { grid-template-columns: repeat(2, 1fr); }
+}
+.dash-stat {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+  padding: 0.85rem 0.75rem;
+  border: 1px solid var(--rule);
+  border-radius: 6px;
+  text-decoration: none;
+  color: var(--fg);
+  background: transparent;
+}
+.dash-stat:hover, .dash-stat:focus {
+  border-color: var(--accent);
+  background: var(--rule);
+}
+.dash-stat__label { font-size: 0.8rem; color: var(--fg-muted); }
+.dash-stat__value { font-size: 1.5rem; font-weight: 600; color: var(--accent); line-height: 1.1; }
+.dash-stat__badge {
+  display: inline-block;
+  font-size: 0.7rem;
+  padding: 0.05rem 0.4rem;
+  border: 1px solid var(--rule);
+  border-radius: 999px;
+  color: var(--fg-muted);
+  margin-top: 0.15rem;
+}
+
+/* Recent-activity row(s): either one feed or three side-by-side stacks. */
+.dash-section { margin: 0 0 1.5rem; }
+.dash-section h2 { font-size: 0.95rem; font-weight: 500; color: var(--accent); margin: 0 0 0.5rem; }
+.dash-feed { list-style: none; padding: 0; margin: 0; }
+.dash-feed-row { padding: 0.55rem 0; border-bottom: 1px solid var(--rule); display: flex; gap: 0.6rem; align-items: baseline; font-size: 0.9rem; }
+.dash-feed-row__kind { font-size: 0.75rem; color: var(--fg-muted); text-transform: uppercase; letter-spacing: 0.04em; min-width: 5rem; }
+.dash-feed-row__title { color: var(--accent); text-decoration: none; flex: 1; }
+.dash-feed-row__title:hover, .dash-feed-row__title:focus { text-decoration: underline; }
+.dash-feed-row__when { color: var(--fg-muted); font-size: 0.8rem; white-space: nowrap; }
+
+.dash-columns { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; }
+@media (max-width: 36rem) { .dash-columns { grid-template-columns: 1fr; } }
+.dash-column h3 { font-size: 0.85rem; font-weight: 500; color: var(--accent); margin: 0 0 0.4rem; }
+.dash-column .more-link { display: block; margin-top: 0.35rem; font-size: 0.8rem; }
+.dash-mini-list { list-style: none; padding: 0; margin: 0; }
+.dash-mini-list li { padding: 0.3rem 0; border-bottom: 1px solid var(--rule); font-size: 0.85rem; }
+.dash-mini-list li a { color: var(--accent); text-decoration: none; }
+.dash-mini-list li a:hover, .dash-mini-list li a:focus { text-decoration: underline; }
+.dash-mini-list .when { color: var(--fg-muted); font-size: 0.75rem; display: block; }
+.dash-mini-empty { color: var(--fg-muted); font-size: 0.85rem; font-style: italic; padding: 0.3rem 0; }
+
+/* Quick-create row at the bottom. */
+.dash-quick { display: flex; gap: 0.5rem; flex-wrap: wrap; }
+.dash-quick a { /* reuses .cta look */ }
+
+/* Empty-workspace panel for the all-zeros case. */
+.dash-empty {
+  padding: 1.25rem;
+  border: 1px dashed var(--rule);
+  border-radius: 6px;
+  color: var(--fg-muted);
+}
+.dash-empty h2 { margin: 0 0 0.4rem; font-size: 1rem; color: var(--accent); }
+.dash-empty code { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; }
+
+/* ---- Dashboard hero strip (Larry) ----
+   Flex: portrait left, text right. Stacks vertically below ~30rem so the
+   portrait doesn't get squeezed on a narrow viewport. */
+.dash-hero {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 0.85rem 1rem;
+  border: 1px solid var(--rule);
+  border-radius: 6px;
+}
+.dash-hero__portrait {
+  width: 96px;
+  height: 96px;
+  border-radius: 50%;
+  object-fit: cover;
+  flex: 0 0 auto;
+  background: var(--rule);
+}
+.dash-hero__text { display: flex; flex-direction: column; gap: 0.15rem; }
+.dash-hero__name { margin: 0; font-size: 1.1rem; font-weight: 600; color: var(--accent); }
+.dash-hero__role { margin: 0; color: var(--fg-muted); font-size: 0.9rem; line-height: 1.4; }
+@media (max-width: 30rem) {
+  .dash-hero { flex-direction: column; align-items: flex-start; text-align: left; }
+}
+
+/* ---- Dashboard team grid ----
+   Responsive CSS grid; cards auto-fill at ~10rem minimum so the grid
+   reflows from 3-up on wide screens to 1-up on phone width without media
+   queries doing the work. */
+.dash-team-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(11rem, 1fr));
+  gap: 0.6rem;
+}
+.dash-team-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 0.25rem;
+  padding: 0.75rem 0.6rem;
+  border: 1px solid var(--rule);
+  border-radius: 6px;
+  background: transparent;
+}
+.dash-team-card__portrait {
+  width: 72px;
+  height: 72px;
+  border-radius: 50%;
+  object-fit: cover;
+  background: var(--rule);
+  margin-bottom: 0.15rem;
+}
+.dash-team-card__name { font-weight: 600; color: var(--accent); font-size: 0.95rem; }
+.dash-team-card__role { font-size: 0.8rem; color: var(--fg); line-height: 1.35; }
+.dash-team-card__ask { font-size: 0.75rem; color: var(--fg-muted); line-height: 1.35; }
+.dash-team-card__role code,
+.dash-team-card__ask code {
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-size: 0.75rem;
+  background: transparent;
+}
+
+/* ---- Dashboard "Try saying" card ----
+   One row per phrasing: <code> on the left, small copy button on the
+   right. The copy button is a neutral, smaller take on .cta — same
+   border/hover idiom so it reads as part of the family. */
+.dash-try-saying {
+  padding: 0.85rem 1rem;
+  border: 1px solid var(--rule);
+  border-radius: 6px;
+}
+.dash-try-saying h2 { margin-top: 0; }
+.dash-try-row {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 0.4rem 0;
+  border-bottom: 1px solid var(--rule);
+}
+.dash-try-row:last-child { border-bottom: 0; }
+.dash-try-row code {
+  flex: 1;
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-size: 0.85rem;
+  color: var(--accent);
+  background: transparent;
+  word-break: break-word;
+}
+.dash-try-copy {
+  flex: 0 0 auto;
+  display: inline-block;
+  padding: 0.2rem 0.55rem;
+  border: 1px solid var(--rule);
+  border-radius: 4px;
+  color: var(--fg-muted);
+  background: transparent;
+  font: inherit;
+  font-size: 0.75rem;
+  cursor: pointer;
+  min-width: 4.2rem;
+  text-align: center;
+}
+.dash-try-copy:hover, .dash-try-copy:focus {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+.dash-try-copy.is-copied {
+  border-color: var(--accent);
+  color: var(--accent);
+  background: var(--rule);
+}
+
+/* ---- Dashboard "Resources & status" 2x2 grid ----
+   Four cards: Starter Kit, Q&A, Community sharing, Users status. The
+   grid is auto-fit so the layout collapses to 1-up on narrow viewports
+   (~600px and below). Card chrome matches .dash-try-saying / .dash-hero
+   so the new section reads as part of the same dashboard family. */
+.dash-resources-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 0.75rem;
+}
+.dash-resource-card {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  padding: 0.85rem 1rem;
+  border: 1px solid var(--rule);
+  border-radius: 6px;
+  background: transparent;
+}
+.dash-resource-card__title {
+  margin: 0;
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--accent);
+}
+.dash-resource-card__body {
+  margin: 0;
+  font-size: 0.85rem;
+  color: var(--fg);
+  line-height: 1.45;
+}
+.dash-resource-card .cta {
+  align-self: flex-start;
+  font-size: 0.8rem;
+}
+.dash-resource-card__cta-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+}
+.dash-resource-note {
+  margin: 0;
+  font-size: 0.75rem;
+  color: var(--fg-muted);
+  font-style: italic;
+}
+
+/* Q&A: tighten the native <details> presentation so it reads as part of
+   the card, not as a stack of disclosure widgets. The summary loses its
+   default marker on hover/focus styles but keeps the triangle so it
+   still signals "click to expand". */
+.dash-resource-qa {
+  border-bottom: 1px solid var(--rule);
+  padding: 0.35rem 0;
+}
+.dash-resource-qa:last-of-type { border-bottom: 0; }
+.dash-resource-qa > summary {
+  cursor: pointer;
+  font-size: 0.85rem;
+  color: var(--accent);
+  font-weight: 500;
+  list-style-position: outside;
+  padding: 0.1rem 0;
+}
+.dash-resource-qa > summary:hover,
+.dash-resource-qa > summary:focus {
+  color: var(--accent);
+  text-decoration: underline;
+}
+.dash-resource-qa[open] > summary { margin-bottom: 0.3rem; }
+.dash-resource-qa > p {
+  margin: 0.25rem 0 0.4rem;
+  font-size: 0.85rem;
+  color: var(--fg);
+  line-height: 1.45;
+}
+.dash-resource-qa code {
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-size: 0.8rem;
+  background: transparent;
+}
+
+/* ---- Dashboard "Get started" 5-step walkthrough ----
+   One row per step: a circular number chip on the left, content on the
+   right (title + body + one or more code-line + copy-button rows). The
+   `.dash-step__cmd` row reuses the same flex idiom as `.dash-try-row`
+   so the visual rhythm matches the Try-saying card below; the only
+   difference is that walkthrough steps may stack multiple commands
+   under one step (see step 4: Pax + Nolan). */
+.dash-step {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.85rem;
+  padding: 0.75rem 0;
+  border-bottom: 1px solid var(--rule);
+}
+.dash-step:last-of-type { border-bottom: 0; }
+.dash-step__num {
+  flex: 0 0 auto;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2rem;
+  height: 2rem;
+  border-radius: 50%;
+  background: var(--accent);
+  color: var(--bg, #fff);
+  font-weight: 600;
+  font-size: 0.95rem;
+  line-height: 1;
+}
+.dash-step__content {
+  flex: 1 1 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  min-width: 0;
+}
+.dash-step__title {
+  margin: 0;
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--accent);
+  line-height: 1.3;
+}
+.dash-step__body {
+  margin: 0;
+  font-size: 0.85rem;
+  color: var(--fg);
+  line-height: 1.45;
+}
+.dash-step__cmd {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  margin-top: 0.15rem;
+}
+.dash-step__cmd code {
+  flex: 1;
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-size: 0.85rem;
+  color: var(--accent);
+  background: transparent;
+  word-break: break-word;
+}
+
+/* ---- FAQ portrait thumbnail (Q&A teammate rows) ----
+   Tiny circular face beside the "Who's <Name>?" summary text. The
+   native <details> marker stays on the left; the img sits between
+   the marker and the question, vertically centered with the text. */
+.dash-faq-portrait {
+  display: inline-block;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  object-fit: cover;
+  vertical-align: middle;
+  margin-right: 0.5rem;
+  border: 1px solid var(--rule);
+}
+.dash-resource-qa > summary {
+  /* Keep the marker properly aligned even though the summary now
+     contains an inline-block image. */
+  display: list-item;
+}
+
+/* ---- Dashboard "Users status" deployments list ----
+   Plain unstyled list (no bullets, tight rhythm). The note span uses the
+   shared .muted utility so it matches the rest of the dashboard chrome. */
+.dash-deployments {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 0.5rem;
+}
+.dash-deployments li {
+  font-size: 0.85rem;
+  line-height: 1.4;
+  padding: 0.15rem 0;
+}
+
+/* ---- Dashboard PKA Starter Kit launch card ----
+   Single full-width card between the team grid and the Try-saying card.
+   Bordered + rounded to match .dash-hero / .dash-try-saying chrome; the
+   internal stack (heading -> body -> button) uses flex-column with a
+   comfortable gap so the CTA never crowds the body copy. */
+.dash-launch-kit {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+  padding: 1rem;
+  border: 1px solid var(--rule);
+  border-radius: 6px;
+}
+.dash-launch-kit__title {
+  margin: 0;
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--accent);
+}
+.dash-launch-kit__body {
+  margin: 0;
+  font-size: 0.9rem;
+  color: var(--fg);
+  line-height: 1.5;
+}
+.dash-launch-kit .cta {
+  align-self: flex-start;
+}
+
+/* ---- Dashboard FAQ section ----
+   Native <details>/<summary>, no JS. Container card matches the chrome
+   of .dash-try-saying / .dash-launch-kit so the section reads as part
+   of the family. Items stack with hairline separators; future entries
+   append by adding more .dash-faq-item rows — no restructuring needed.
+   Note: these selectors are intentionally distinct from the older
+   .dash-resource-qa rules above (different dashboard variant). */
+.dash-faq {
+  padding: 0.85rem 1rem;
+  border: 1px solid var(--rule);
+  border-radius: 6px;
+}
+.dash-faq-item {
+  padding: 0.4rem 0;
+  border-bottom: 1px solid var(--rule);
+}
+.dash-faq-item:last-of-type { border-bottom: 0; }
+.dash-faq-item > summary {
+  cursor: pointer;
+  font-weight: 500;
+  color: var(--accent);
+  font-size: 0.9rem;
+}
+.dash-faq-item > summary:hover,
+.dash-faq-item > summary:focus { text-decoration: underline; }
+.dash-faq-item[open] > summary { margin-bottom: 0.4rem; }
+.dash-faq-body {
+  color: var(--fg);
+  font-size: 0.85rem;
+  line-height: 1.55;
+}
+.dash-faq-body p { margin: 0.25rem 0 0.5rem; }
+.dash-faq-steps {
+  margin: 0.25rem 0 0;
+  padding-left: 1.5rem;
+  line-height: 1.55;
+}
+.dash-faq-steps li { padding: 0.15rem 0; }
+.dash-faq-body code {
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  color: var(--accent);
+  background: transparent;
+}
+
+/* Consolidated "Who's on the team?" entry — one tight row per member.
+   Text-only (no portraits) by design: keeps the FAQ scannable and lets
+   the roster sit inside a single expandable entry instead of 11 entries.
+   The hairline border-bottom mirrors the rhythm of `.dash-faq-item`
+   itself so the list reads as part of the FAQ family, not bolted on. */
+.dash-faq-team-list {
+  list-style: none;
+  padding-left: 0;
+  margin: 0.25rem 0 0;
+  line-height: 1.5;
+}
+.dash-faq-team-list li {
+  padding: 0.35rem 0;
+  border-bottom: 1px solid var(--rule);
+}
+.dash-faq-team-list li:last-child { border-bottom: 0; }
+.dash-faq-team-list strong { color: var(--accent); }
+
+/* ---- Dashboard "Workspace status" link card ----
+   Single bordered block that points from /dashboard to /workspace. Sits
+   below the FAQ. Mirrors the chrome of .dash-launch-kit / .dash-faq so
+   the page reads as one family. Reuses existing tokens — no new colors. */
+.dash-status-link {
+  display: block;
+  padding: 1rem;
+  border: 1px solid var(--rule);
+  border-radius: 6px;
+  text-decoration: none;
+  color: inherit;
+  transition: border-color 0.15s ease, background-color 0.15s ease;
+}
+.dash-status-link:hover,
+.dash-status-link:focus {
+  border-color: var(--accent);
+  background: rgba(127, 127, 127, 0.06);
+  text-decoration: none;
+}
+.dash-status-link strong {
+  display: block;
+  color: var(--accent);
+  font-size: 0.95rem;
+  font-weight: 600;
+}
+.dash-status-link span {
+  display: block;
+  color: var(--fg-muted);
+  font-size: 0.85rem;
+  margin-top: 0.2rem;
+}
+
+/* ---- /community page ----
+   Three blocks: (1) a prominent "Need help?" CTA at the top, (2) a
+   users table with status badges, (3) KB cards grouped by category +
+   a contribute form at the bottom. Chrome reuses --rule / --accent /
+   --fg-muted tokens so the page sits inside the dashboard family. */
+
+/* Prominent CTA — accented background, white text. Overrides the default
+   .cta hover-to-fill idiom because this button is meant to read as the
+   primary action on the page, not a quiet outline. */
+.dash-community-help {
+  background: var(--accent);
+  color: var(--bg);
+  border-color: var(--accent);
+  padding: 0.55rem 1rem;
+  font-weight: 500;
+}
+.dash-community-help:hover,
+.dash-community-help:focus {
+  background: transparent;
+  color: var(--accent);
+}
+
+/* Users table. Bordered, alternating row tint via :nth-child for cheap
+   scanability without striping JS. */
+.dash-community-users {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 0.25rem 0 0.75rem;
+  font-size: 0.9rem;
+}
+.dash-community-users thead th {
+  text-align: left;
+  font-weight: 500;
+  font-size: 0.8rem;
+  color: var(--fg-muted);
+  border-bottom: 1px solid var(--rule);
+  padding: 0.4rem 0.6rem;
+}
+.dash-community-users tbody td {
+  padding: 0.5rem 0.6rem;
+  border-bottom: 1px solid var(--rule);
+  vertical-align: top;
+}
+.dash-community-users tbody tr:nth-child(even) td {
+  background: rgba(127, 127, 127, 0.05);
+}
+
+/* Status badge — small pill, color by status. Hex picks are kept
+   minimal and friendly to both light and dark themes (light bg + dark
+   text; the dark-mode block flips to dark bg + light text). */
+.status-badge {
+  display: inline-block;
+  font-size: 0.75rem;
+  padding: 0.1rem 0.5rem;
+  border-radius: 999px;
+  border: 1px solid var(--rule);
+  text-transform: lowercase;
+  line-height: 1.3;
+}
+.status-active     { background: #e6f5ea; color: #1f6f3a; border-color: #b8dcc4; }
+.status-deployed   { background: #e6efff; color: #1f4a99; border-color: #bcd0f5; }
+.status-installed  { background: #fff4d6; color: #8a5a00; border-color: #f0d893; }
+.status-inactive   { background: #ececec; color: #555;    border-color: #d5d5d5; }
+.status-unknown    { background: transparent; color: var(--fg-muted); }
+@media (prefers-color-scheme: dark) {
+  .status-active     { background: #1c3a26; color: #b6e7c4; border-color: #2f5a3c; }
+  .status-deployed   { background: #1c2a4a; color: #b8caf2; border-color: #2f3f6a; }
+  .status-installed  { background: #3a2e10; color: #f0d893; border-color: #5a4520; }
+  .status-inactive   { background: #2a2a2a; color: #aaa;    border-color: #444; }
+}
+
+/* KB section. Cards stack in a single column for readability; the
+   meta row is muted so the title carries the visual weight. */
+.dash-community-kb-group { margin: 0.5rem 0 1rem; }
+.dash-community-kb-group h3 {
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: var(--accent);
+  margin: 0.75rem 0 0.4rem;
+}
+.dash-community-kb-cards {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+.dash-community-kb-card {
+  border: 1px solid var(--rule);
+  border-radius: 6px;
+  padding: 0.7rem 0.85rem;
+  background: transparent;
+}
+.dash-community-kb-card__title {
+  margin: 0 0 0.15rem;
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--accent);
+}
+.dash-community-kb-card__meta {
+  margin: 0 0 0.4rem;
+  font-size: 0.75rem;
+  color: var(--fg-muted);
+}
+.dash-community-kb-card__body {
+  margin: 0;
+  font-size: 0.9rem;
+  color: var(--fg);
+  line-height: 1.5;
+  white-space: pre-wrap;
+}
+.dash-community-kb-empty { margin: 0.25rem 0 0.5rem; }
+
+/* Contribute form. Reuses .entity-form spacing for inputs; this block
+   adds the radio-row layout + a card-shaped wrapper feel via padding. */
+.dash-community-form fieldset {
+  border: 1px solid var(--rule);
+  border-radius: 4px;
+  padding: 0.5rem 0.75rem;
+  margin: 0.85rem 0;
+}
+.dash-community-form fieldset legend {
+  font-size: 0.85rem;
+  color: var(--fg-muted);
+  padding: 0 0.25rem;
+}
+.dash-community-form label.radio {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  margin: 0.25rem 1rem 0.25rem 0;
+  font-size: 0.9rem;
+  color: var(--fg);
+}
+.dash-community-form label.radio input { margin: 0; }
+
+/* Flash banner: green-tinted success bar above the form. */
+.dash-community-flash {
+  margin: 0.5rem 0 1rem;
+  padding: 0.6rem 0.85rem;
+  border: 1px solid #b8dcc4;
+  background: #e6f5ea;
+  color: #1f6f3a;
+  border-radius: 4px;
+  font-size: 0.9rem;
+}
+@media (prefers-color-scheme: dark) {
+  .dash-community-flash {
+    border-color: #2f5a3c;
+    background: #1c3a26;
+    color: #b6e7c4;
+  }
+}
+
+/* ---- Diff table on review pages ---- */
+.diff { width: 100%; border-collapse: collapse; margin: 1rem 0; }
+.diff th, .diff td { text-align: left; padding: 0.4rem 0.6rem; vertical-align: top; border-bottom: 1px solid var(--rule); }
+.diff thead th { font-size: 0.8rem; color: var(--fg-muted); font-weight: 500; }
+.diff-was { color: var(--fg-muted); text-decoration: line-through; }
+.diff-new { color: var(--accent); }
+
+/* ---- Email Rick CTA on /dashboard ----
+   Quiet, centered standalone section. Reuses the .cta chrome (outline
+   button with hover-fill) so it reads as part of the dashboard family
+   rather than introducing a new button style. Intentionally understated
+   — Rick doesn't want this to dominate the page. */
+.dash-help-cta {
+  text-align: center;
+  margin: 1.25rem 0 0;
+}
+.dash-help-cta-btn {
+  display: inline-block;
+  padding: 0.5rem 1.1rem;
+  font-size: 0.92rem;
+}
