@@ -78,6 +78,12 @@
     
       
     
+      
+    
+    
+      
+        
+      
     
       
         
@@ -92,6 +98,84 @@
       
     
 
+    
+      
+      
+      <section class="kb-group">
+        <h3>Setup</h3>
+        <div class="kb-cards">
+          
+          <article class="kb-card">
+            <h4 class="kb-card__title">Step-by-step setup guide for the Larry plugin</h4>
+            <p class="kb-card__meta">
+              by Larry &middot; 2026-05-19
+              
+            </p>
+            
+            <div class="kb-card__body">This is the full walkthrough for installing the Larry PKA starter kit from zero. Plan on 15–20 minutes the first time. You&#x27;ll need a laptop (macOS or Windows), an internet connection, and a Claude.ai account.
+
+<strong>Step 1 — Download the starter kit.</strong>
+
+From the Download Kit tab of this hub, click <strong>Download Larry PKA Starter Kit</strong>. A zip file (<code>larry-pka-starter-main.zip</code>) downloads to your laptop. If clicking that link took you to GitHub instead, look for the green <strong>Code</strong> button at the top-right of the file listing and choose <strong>Download ZIP</strong>.
+
+Unzip the file. You&#x27;ll get a folder called <code>larry-pka-starter-main</code> (or similar). Move it to your Desktop and rename it to something meaningful for you — for example, <code>My-Larry</code> or <code>Sarah-AI-Workspace</code>. This folder is your knowledge vault: the place where Larry stores notes, agent definitions, and memory.
+
+<strong>Step 2 — Install Obsidian.</strong>
+
+Obsidian is a free note-taking app that organizes plain markdown files. Download it from <code>obsidian.md</code> and install for your OS.
+
+On first launch, Obsidian asks where your vault lives. Choose <strong>Open folder as vault</strong> and point at the Larry workspace folder you just unzipped and renamed. Obsidian now treats that folder as your personal knowledge vault — you can browse, edit, and search it like a notebook.
+
+<strong>Step 3 — Install Claude Desktop and enable Cowork mode.</strong>
+
+Download Claude Desktop from <code>claude.ai</code> and install. Sign in with your existing Claude account (or create one — the free tier is enough to get started). Open the app&#x27;s settings and enable <strong>Cowork mode</strong> — this is the permission layer that lets Claude read and write files on your laptop.
+
+Cowork mode is what makes Larry work: without it, Claude can only chat. With it, Claude can edit notes in your vault, route work to specialist agents, and run the morning brief routine.
+
+<strong>Step 4 — Install the Larry-pka-plugin.</strong>
+
+Inside Claude Desktop, navigate to the plugin or connector settings. Add the <code>Larry-pka-plugin</code> (it ships in the starter kit you unzipped — point Claude at the workspace folder from Step 1). Claude installs the plugin automatically.
+
+The plugin tells Claude how to behave as Larry: the orchestrator pattern, the named specialist team, the routing rules, and the iron rule (Larry never does work himself — he always routes to a specialist).
+
+<strong>Step 5 — Have your first conversation with Larry.</strong>
+
+Open a new Claude Desktop conversation. Say:
+
+<code>Larry, set up my profile.</code>
+
+Larry will ask seven short questions: your name, your preferred name for the assistant (you can keep &quot;Larry&quot; or rename — Larry is just a placeholder), your email, what you do, your time zone and working hours, your preferred communication style, and what Larry should never do without checking with you first.
+
+He&#x27;ll save your answers to <code>Library/user-profile.md</code> in your workspace folder. From now on, every conversation reads that profile so the team knows who they&#x27;re working with.
+
+<strong>Step 6 — Try your first morning brief.</strong>
+
+Once your profile is set up, say:
+
+<code>Larry, morning brief.</code>
+
+Larry pulls together a daily digest — calendar items, open action items, world news headlines, and yesterday&#x27;s token usage. This is the routine you&#x27;ll use most.
+
+<strong>Step 7 (optional) — Connect MCP tools.</strong>
+
+For a richer morning brief, connect the MCP tools at the <code>claude.ai/connectors</code> level: Gmail, Google Calendar, Google Drive, Krisp (meeting transcripts), and any others you use. Each connector you add gives Larry more context to work with.
+
+<strong>You&#x27;re done.</strong>
+
+You now have your own Larry. Some things to try next:
+<ul>
+<li>Ask <code>Pax, research [a topic]</code> — your research specialist.</li>
+<li>Ask <code>Hank, what should I think about regarding [a decision]?</code> — your strategy specialist.</li>
+<li>Ask <code>Larry, customize my AI team</code> — adjust which specialists you keep.</li>
+<li>Browse the Q&amp;A tab here for common questions and gotchas.</li>
+</ul>
+
+If you get stuck, click <strong>Get Help</strong> in the nav above and use the Message Rick Directly button — Rick personally reviews every help request.</div>
+          </article>
+          
+        </div>
+      </section>
+      
     
       
       
@@ -112,7 +196,7 @@
               
             </p>
             
-            <p class="kb-card__body">Andrej Karpathy — OpenAI founding team, former Tesla AI director, prolific LLM educator — has spoken publicly about treating LLMs as a &quot;second brain&quot;: a personal thinking partner you query, learn from, and iteratively refine your understanding with over time.
+            <div class="kb-card__body">Andrej Karpathy — OpenAI founding team, former Tesla AI director, prolific LLM educator — has spoken publicly about treating LLMs as a &quot;second brain&quot;: a personal thinking partner you query, learn from, and iteratively refine your understanding with over time.
 
 His framing emphasizes three patterns:
 
@@ -120,7 +204,7 @@ His framing emphasizes three patterns:
 - **Personal wiki as the durable layer.** Capture what you learn from these dialogues in a structured, queryable form — typically in plain markdown for portability. The LLM is ephemeral; your notes are not.
 - **Iterate.** Each conversation is one cycle: the LLM teaches you, you write down what stuck, you come back with sharper questions next time. The wiki grows with you.
 
-The PKA Larry workspace follows this pattern: Obsidian as the wiki&#x27;s filesystem layer, Claude as the orchestration layer (Larry plus a specialist team), and the morning brief routine as the daily sync between what the world surfaces and what the wiki should absorb.</p>
+The PKA Larry workspace follows this pattern: Obsidian as the wiki&#x27;s filesystem layer, Claude as the orchestration layer (Larry plus a specialist team), and the morning brief routine as the daily sync between what the world surfaces and what the wiki should absorb.</div>
           </article>
           
         </div>
@@ -140,7 +224,7 @@ The PKA Larry workspace follows this pattern: Obsidian as the wiki&#x27;s filesy
               
             </p>
             
-            <p class="kb-card__body">A common starting pattern is to treat the LLM as a single helpful tool you query for one-off tasks. The PKA Larry pattern instead treats Claude as a team of named specialists with role definitions, personalities, and lanes — orchestrated by a single front-door agent (Larry).
+            <div class="kb-card__body">A common starting pattern is to treat the LLM as a single helpful tool you query for one-off tasks. The PKA Larry pattern instead treats Claude as a team of named specialists with role definitions, personalities, and lanes — orchestrated by a single front-door agent (Larry).
 
 Why the shift matters:
 
@@ -148,7 +232,7 @@ Why the shift matters:
 - **Routing makes the surface area scalable.** Larry chooses the right specialist for the task. You stop deciding &quot;should I phrase this as a research question or a strategy question&quot; — you just ask, and Larry routes.
 - **Lanes prevent context leakage.** Knox (legal) does not opine on tax. Felix (CPA) does not draft contracts. The constraint makes each specialist sharper, not weaker.
 
-This pattern shows up in other names — &quot;AI team of agents&quot;, &quot;MCP-routed agents&quot;, &quot;Cowork mode&quot; — but the underlying move is the same: structure the model&#x27;s identity with role files, then orchestrate.</p>
+This pattern shows up in other names — &quot;AI team of agents&quot;, &quot;MCP-routed agents&quot;, &quot;Cowork mode&quot; — but the underlying move is the same: structure the model&#x27;s identity with role files, then orchestrate.</div>
           </article>
           
         </div>
@@ -168,7 +252,7 @@ This pattern shows up in other names — &quot;AI team of agents&quot;, &quot;MC
               
             </p>
             
-            <p class="kb-card__body">The single highest-leverage prompting pattern: tell Claude what the output should look like before you describe the task.
+            <div class="kb-card__body">The single highest-leverage prompting pattern: tell Claude what the output should look like before you describe the task.
 
 Three forms:
 
@@ -178,7 +262,7 @@ Three forms:
 
 When you skip this step, you get exploratory prose. When you include it, you get usable artifacts.
 
-This works across model families. It works better in Claude than in some others because Claude is unusually compliant with format requests.</p>
+This works across model families. It works better in Claude than in some others because Claude is unusually compliant with format requests.</div>
           </article>
           
         </div>
