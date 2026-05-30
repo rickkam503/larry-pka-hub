@@ -21,7 +21,7 @@
 </head>
 <body class="theme-community-light">
   <header class="site-header">
-    <span class="brand">pkm</span>
+    <span class="brand">Larry PKA</span>
     <span class="subtitle">knowledge base</span>
   </header>
   <nav class="site-nav" aria-label="primary">
@@ -80,6 +80,26 @@
     
       
     
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
     
       
         
@@ -244,6 +264,66 @@ If you get stuck, click <strong>Get Help</strong> in the nav above and use the M
 To change plugins later: open Obsidian → Settings (gear icon, bottom-left) → Core plugins → toggle on/off.</div>
           </article>
           
+          <article class="kb-card">
+            <h4 class="kb-card__title">Install Mini-Larry on your iPhone or iPad</h4>
+            <p class="kb-card__meta">
+              by Larry &middot; 2026-05-30
+              
+            </p>
+            
+            <div class="kb-card__body">Mini-Larry is the pocket version of Larry. He runs inside the <strong>Claude iPhone/iPad app</strong> as a custom &quot;Larry&quot; Project, and he&#x27;s built to be voice-first — you ask while you&#x27;re walking, driving, or away from the desk, and he answers in the moment. He talks to the same connectors your desktop Larry uses (Gmail, Google Drive, Google Calendar, Krisp), so he already knows your meetings, mail, and files.
+
+Be clear about what he is and isn&#x27;t. Mini-Larry is a <strong>companion to</strong> the desktop Larry, not a replacement. When a question lands in a specialist&#x27;s lane he <em>channels</em> that specialist&#x27;s voice — he&#x27;ll say &quot;Channeling Hank for a second&quot; and answer in their register — but he does not actually dispatch the full team the way desktop Larry does. He also <strong>cannot</strong>:
+
+<ul>
+<li>Read local files on your Mac — no Owner&#x27;s Inbox, no agent files, no local Library.</li>
+<li>Run the <code>pkm</code> command-line tool or query any database.</li>
+<li>Write to your computer&#x27;s disk.</li>
+</ul>
+
+Anything that needs one of those is a laptop job — Mini-Larry will say so and queue it for your morning brief.
+
+<strong>Before you start.</strong> You need a Claude <strong>Pro or Max</strong> subscription — Projects and custom connectors are paid-tier features — and the same Claude account you use on the desktop. Plan on about ten minutes. The first four steps are easiest from a desktop browser (faster for pasting and uploading); the last three happen on the phone.
+
+<strong>Step 1 — Install the Claude app.</strong>
+
+On your iPhone or iPad, open the App Store, search for <strong>Claude by Anthropic</strong>, and install it. Sign in with the same account you use at <code>claude.ai</code>.
+
+<strong>Step 2 — Create the Larry Project on the web.</strong>
+
+Open <code>claude.ai</code> in a desktop browser. In the left sidebar, choose <strong>Projects</strong>, then <strong>New Project</strong>. Name it exactly <strong>Larry</strong>. A description is optional.
+
+<strong>Step 3 — Paste in the custom instructions.</strong>
+
+In your new Larry Project, find the <strong>Custom instructions</strong> field and paste in the full Mini-Larry custom-instructions text from your starter package, then save. This is what gives Mini-Larry his identity, his voice, and his guardrails.
+
+<strong>Step 4 — Upload the project knowledge.</strong>
+
+Still in the Project, open <strong>Project knowledge</strong> and upload each file from the package&#x27;s <code>project-knowledge</code> folder, one at a time. These give Mini-Larry his background — the team roster so he recognizes people, and the glossary so he knows your terms on first reference.
+
+<strong>Step 5 — Open the Project on your phone.</strong>
+
+Launch the Claude app on your iPhone or iPad and tap <strong>Projects</strong>. The <strong>Larry</strong> project appears automatically — it syncs from your account.
+
+<strong>Step 6 — Pin Larry so he&#x27;s your default.</strong>
+
+In the Projects list, long-press <strong>Larry</strong> and choose pin (or star, depending on your app version). This makes Larry the project you land in when you open the app, so you don&#x27;t start talking to a fresh, empty Claude by mistake.
+
+<strong>Step 7 (optional) — Confirm your connectors.</strong>
+
+Connectors are configured on the web, then auto-sync to your phone. To check them, go to <code>claude.ai</code> → <strong>Customize</strong> → <strong>Connectors</strong> and make sure Gmail, Google Drive, Google Calendar, and Krisp are enabled. Your phone can <em>use</em> these connectors but can&#x27;t configure them — that&#x27;s a web task.
+
+<strong>You&#x27;re done. What to try first:</strong>
+<ul>
+<li>Open the <strong>Larry</strong> project, tap the <strong>mic icon</strong>, and say <code>Larry, what&#x27;s on my calendar today?</code></li>
+<li>Tap the <strong>voice-mode icon</strong> (the sphere) for a full hands-free conversation — best for the car or a walk.</li>
+<li>Ask <code>Channel Hank — is this the right move?</code> to hear a specialist&#x27;s voice on a decision.</li>
+<li>Say something worth keeping — Mini-Larry captures it, and Wren folds it into your wiki on the morning sweep.</li>
+</ul>
+
+When the wiki or team roster changes on your laptop, re-upload the affected files in <strong>Project knowledge</strong> to keep Mini-Larry in sync.</div>
+          </article>
+          
         </div>
       </section>
       
@@ -276,6 +356,26 @@ His framing emphasizes three patterns:
 - **Iterate.** Each conversation is one cycle: the LLM teaches you, you write down what stuck, you come back with sharper questions next time. The wiki grows with you.
 
 The PKA Larry workspace follows this pattern: Obsidian as the wiki&#x27;s filesystem layer, Claude as the orchestration layer (Larry plus a specialist team), and the morning brief routine as the daily sync between what the world surfaces and what the wiki should absorb.</div>
+          </article>
+          
+          <article class="kb-card">
+            <h4 class="kb-card__title">Larry PKA as a continuously operating second brain</h4>
+            <p class="kb-card__meta">
+              by Rick Kam &middot; 2026-05-28
+              
+            </p>
+            
+            <div class="kb-card__body">The &quot;second brain&quot; idea — Karpathy&#x27;s framing of an LLM as a thinking partner you build a personal wiki around — is the right starting point, but Larry PKA pushes past it. The second brain in popular use is mostly a retrieval surface: you write things down, you query them later, the model helps you summarize. Useful, but passive.
+
+Larry PKA expands that into a <strong>continuously operating intelligence layer</strong>. The same wiki underneath, but a different surface on top:
+
+- <strong>Contextual memory retrieval</strong> — the team doesn&#x27;t just find a note, it pulls the right note for the conversation you&#x27;re in right now.
+- <strong>Workflow orchestration</strong> — routines fire on a schedule (morning brief, daily journal, monthly recon) and write into the wiki without being asked.
+- <strong>Strategic briefing generation</strong> — meeting prep, decision memos, world-news scans synthesized into one place each morning.
+- <strong>Operational monitoring</strong> — the team watches inboxes, statements, deadlines, and surfaces the ones that need attention.
+- <strong>Multi-agent coordination</strong> — Larry routes, specialists deliver, the wiki absorbs the result.
+
+The objective shifts from <em>information storage</em> to <em>operational augmentation</em>. You stop reading your notes — your notes start working for you.</div>
           </article>
           
         </div>
@@ -342,11 +442,78 @@ This works across model families. It works better in Claude than in some others 
     
       
       
+      <section class="kb-group">
+        <h3>AI patterns</h3>
+        <div class="kb-cards">
+          
+          <article class="kb-card">
+            <h4 class="kb-card__title">The five-layer Larry PKA architecture</h4>
+            <p class="kb-card__meta">
+              by Rick Kam &middot; 2026-05-28
+              
+            </p>
+            
+            <div class="kb-card__body">Larry PKA is built on five distinct layers, each with a clear lane. The split is what lets the platform scale from personal productivity today into family operations and residential robotics tomorrow without rearchitecting.
+
+- <strong>Knowledge Layer</strong> — the persistent wiki. Plain markdown, queryable, portable. The Karpathy second-brain layer. Everything else reads from here.
+- <strong>Operational Intelligence Layer</strong> — the synthesis surface. Daily briefs, meeting prep, decision memos, statement reconciliation. Turns the knowledge layer into action.
+- <strong>Agentic Orchestration Layer</strong> — Larry plus the named specialist team. Routes work, coordinates handoffs, preserves lanes.
+- <strong>Human Governance Layer</strong> — the iron rule, the non-negotiables, the &quot;ask first&quot; bias. The layer that keeps the AI on a leash while still letting it move.
+- <strong>Environmental Control Layer</strong> — the forward-looking layer for physical-world integration (smart home, energy, robotics). Empty today; designed-for tomorrow.
+
+Together these five layers produce a persistent operational intelligence environment — not a chatbot, not a search engine. A system that <em>does work</em>, with human oversight built in at the governance layer, and a clean path from today&#x27;s productivity use cases into tomorrow&#x27;s physical-world ones.</div>
+          </article>
+          
+          <article class="kb-card">
+            <h4 class="kb-card__title">Agentic-to-agentic workflows with human governance</h4>
+            <p class="kb-card__meta">
+              by Rick Kam &middot; 2026-05-28
+              
+            </p>
+            
+            <div class="kb-card__body">The next wave of AI work is not one human talking to one model. It&#x27;s <strong>intelligent agents talking directly to other intelligent agents</strong> — your AI scheduling a call with their AI, your research agent querying their data agent, your contract bot redlining theirs. The interesting question is what sits above that traffic.
+
+Larry PKA is designed to be the <strong>orchestration and governance layer</strong> over those workflows. Three properties matter:
+
+- <strong>Routing.</strong> An external agent doesn&#x27;t get to talk to your whole team. It talks to Larry, who decides which specialist (if any) responds.
+- <strong>Lanes.</strong> Specialists have explicit scope. Knox doesn&#x27;t opine on tax. Felix doesn&#x27;t draft contracts. An external agent can&#x27;t expand a specialist&#x27;s lane by asking nicely.
+- <strong>Human oversight on outbound.</strong> Drafts get composed automatically. Sends — emails, calendar invites, transactions — require the owner&#x27;s explicit approval. The default is &quot;stage, don&#x27;t ship.&quot;
+
+The bet is that as agent-to-agent traffic grows, the platforms that win will be the ones that supervise it without slowing it down. Larry PKA&#x27;s iron rule (&quot;never act on the owner&#x27;s behalf without explicit approval&quot;) is the load-bearing piece of that supervision.</div>
+          </article>
+          
+        </div>
+      </section>
+      
     
       
       
     
       
+      
+      <section class="kb-group">
+        <h3>Productivity</h3>
+        <div class="kb-cards">
+          
+          <article class="kb-card">
+            <h4 class="kb-card__title">From productivity assistant to Family FSM Drive</h4>
+            <p class="kb-card__meta">
+              by Rick Kam &middot; 2026-05-28
+              
+            </p>
+            
+            <div class="kb-card__body">Larry PKA is designed to evolve in capability over time, not be replaced. The same team, the same wiki, the same governance layer — used for progressively bigger surfaces:
+
+- <strong>Today — personal productivity.</strong> Meeting summaries, research indexing, daily briefs, decision memos, inbox triage. The starter-kit surface.
+- <strong>Near term — executive operational intelligence.</strong> Strategic briefings, prep for every meeting on the calendar, monthly reconciliations, AI-delegation pipelines where one specialist hands work to the next without the owner brokering each step.
+- <strong>Medium term — Family FSM Drive.</strong> The same operational-intelligence pattern applied to family administration: shared scheduling, trust administration, healthcare coordination, financial oversight across multiple members, travel logistics, household operations. One family, one wiki, one orchestrator — multiple owners with their own lanes.
+- <strong>Longer term — residential intelligence and robotics.</strong> EV charging coordination, energy optimization, robotic maintenance, security orchestration, inventory and appliance automation, AI-assisted elder support. The Environmental Control Layer fills in.
+
+The strategic vision is a single scalable platform that coordinates increasingly intelligent digital <em>and</em> physical environments. The convergence is the point — operational intelligence, AI orchestration, persistent memory, family operating systems, and eventually robotics, all reading from the same wiki and routed through the same orchestrator. The objective is straightforward: help humans operate more intelligently, with AI as a trusted operational partner.</div>
+          </article>
+          
+        </div>
+      </section>
       
     
 
